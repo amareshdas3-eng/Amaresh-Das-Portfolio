@@ -11,16 +11,16 @@
 
 ---
 
-## 🏛️ Executive Summary & Inbound Pipelines
+## 🏛️ Executive Summary & Engagement Models
 
 I partner with industrial asset owners, infrastructure investment sponsors, EPC conglomerates, and enterprise technology teams across three primary engagement structures:
 
-### 1. Fractional Owner's Engineer & Gatekeeper (20–30 hrs/month Retainer)
+### 1. Owner's Engineer & Technical Advisor (Fractional Retainer)
 * **Target Audience:** Industrial plant owners, data center developers, and project sponsors approaching FAT, SAT, or EPC contract award.
 * **Core Value:** Independent specification vetting, IEEE/IEC standards compliance audits, EPC change-order defense, and milestone technical gatekeeping.
 * **Key Outcome:** Prevents costly switchgear rework and vendor scope creep before capital is committed.
 
-### 2. Critical Incident RCA & Turnaround Sprint (10–14 Day Fixed Engagement)
+### 2. Root Cause Analysis & Diagnostic Sprint (Focused Technical Review)
 * **Target Audience:** Operating facilities suffering unexplained breaker trips, arc-flash incidents, motor stator burnouts, or commissioning impasses.
 * **Core Value:** Formal Popperian falsification audit, relay setting recalculation (IEEE C37.2 / IEC 60255), sequence-of-events reconstruction, and definitive corrective action roadmaps.
 * **Key Outcome:** Restores revenue uptime and eliminates intermittent nuisance tripping.
@@ -30,7 +30,7 @@ I partner with industrial asset owners, infrastructure investment sponsors, EPC 
 * **Core Value:** Asynchronous governance, critical-path schedule defense, multi-disciplinary contractor coordination, and integration of custom AI engineering intelligence tools.
 * **Key Outcome:** Guaranteed budget, schedule, and safety assurance from FEED through commercial handover.
 
-👉 **[Initiate Retainer or Sprint Scoping on the Master Portfolio](https://amaresh-das.netlify.app/portfolio.html#engagement-models)**
+👉 **[Explore Engagement Models on the Master Portfolio](https://amaresh-das.netlify.app/portfolio.html#engagement-models)**
 
 ---
 
@@ -66,3 +66,4 @@ Read my published technical diagnostic frameworks:
 * **Executive Capability Deck:** [https://amaresh-das.netlify.app/deck](https://amaresh-das.netlify.app/deck)
 * **LinkedIn:** [linkedin.com/in/amaresh-das](https://linkedin.com/in/amaresh-das)
 * **Email:** [amaresh.das3@gmail.com](mailto:amaresh.das3@gmail.com)
+
