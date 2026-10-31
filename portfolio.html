@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Amaresh Das — Senior Project Manager · Electrical Engineering · AI Workflows</title>
-  <meta name="description" content="PMP® Senior Project Manager & Electrical Engineer with 23+ years delivering $200M+ industrial CAPEX. Live interactive AI systems, substation engineering, and plant reliability.">
+  <title>Amaresh Das — Capital Projects Director · Plant Reliability &amp; RCA · Industrial AI Workflows</title>
+  <meta name="description" content="PMP®-certified Senior Project Manager &amp; Electrical Engineer with 23+ years delivering $200M+ heavy industrial CAPEX. Live interactive AI systems, forensic RCA, and plant reliability.">
   
   <!-- ProEngineering Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,6 +24,9 @@
       --outcome-green: #2f7d5b;
       --outcome-bg: #eef4f9;
       --outcome-border: #d4e3ef;
+      --amber: #b45309;
+      --amber-bg: #fffbeb;
+      --amber-border: #fef3c7;
       --bg: #ffffff;
       --bg-alt: #fbfcfd;
       --surface: #ffffff;
@@ -46,6 +49,9 @@
       --outcome-green: #48c78e;
       --outcome-bg: #0e241c;
       --outcome-border: #1a4d3a;
+      --amber: #fbbf24;
+      --amber-bg: #291e0a;
+      --amber-border: #45320d;
       --bg: #08111e;
       --bg-alt: #0a1626;
       --surface: #0c1a2c;
@@ -69,7 +75,7 @@
     a:hover { color: var(--navy); }
     h1, h2, h3, h4, h5 { color: var(--navy); font-weight: 700; line-height: 1.25; }
     .mono { font-family: var(--mono); }
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
     /* ====== HEADER ====== */
     .site-header {
@@ -79,7 +85,7 @@
       align-items: center;
       justify-content: space-between;
       background: var(--surface);
-      gap: 24px;
+      gap: 20px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -127,8 +133,8 @@
     .main-nav {
       display: flex;
       align-items: center;
-      gap: 28px;
-      font-size: 14px;
+      gap: 24px;
+      font-size: 13.5px;
       font-weight: 500;
     }
     .main-nav a {
@@ -142,7 +148,7 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     /* BUTTONS */
@@ -151,8 +157,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      min-height: 42px;
-      padding: 9px 18px;
+      min-height: 40px;
+      padding: 8px 16px;
       color: #fff !important;
       background: var(--navy);
       border-radius: var(--radius);
@@ -176,8 +182,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      min-height: 42px;
-      padding: 9px 16px;
+      min-height: 40px;
+      padding: 8px 15px;
       color: var(--navy);
       background: var(--surface);
       border: 1px solid var(--line);
@@ -214,14 +220,14 @@
       color: var(--navy);
     }
 
-    @media(max-width: 860px) {
+    @media(max-width: 960px) {
       .main-nav { display: none; }
       .site-header { padding: 0 1rem; }
     }
 
     /* ====== HERO / PAGE INTRO ====== */
     .page-intro {
-      padding: 5rem 0 3.5rem;
+      padding: 4.5rem 0 3.25rem;
       border-bottom: 1px solid var(--line);
       background: var(--bg-alt);
     }
@@ -236,7 +242,7 @@
       margin-bottom: 12px;
     }
     .page-intro h1 {
-      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-size: clamp(2.3rem, 4.2vw, 3.7rem);
       font-weight: 800;
       letter-spacing: -.02em;
       line-height: 1.12;
@@ -246,10 +252,31 @@
     .page-intro-lead {
       font-size: 1.12rem;
       color: var(--quiet);
-      max-width: 720px;
+      max-width: 760px;
       line-height: 1.7;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
+    .async-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: var(--silver);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-size: 12.5px;
+      color: var(--navy);
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+    }
+    .async-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--outcome-green);
+      box-shadow: 0 0 8px var(--outcome-green);
+    }
+
     .metrics-bar {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -258,8 +285,7 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       overflow: hidden;
-      margin-top: 2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
     }
     .metric-cell {
       background: var(--surface);
@@ -289,9 +315,8 @@
     .contact-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
-      margin-top: 1.5rem;
     }
     .contact-pill {
       display: inline-flex;
@@ -330,7 +355,7 @@
       border-bottom: 1px solid var(--line);
     }
     .section-heading h2 {
-      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
       font-weight: 700;
       letter-spacing: -.5px;
       color: var(--navy);
@@ -338,9 +363,189 @@
     .section-heading p {
       font-size: .95rem;
       color: var(--quiet);
-      max-width: 650px;
+      max-width: 680px;
       margin-top: 6px;
       line-height: 1.6;
+    }
+
+    /* ====== ENGAGEMENT MODELS GRID ====== */
+    .models-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .model-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 30px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .model-card:hover {
+      border-color: var(--steel);
+      box-shadow: 0 6px 24px rgba(16,39,68,.06);
+    }
+    .model-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--silver);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-blue);
+      font-family: var(--mono);
+      margin-bottom: 14px;
+      letter-spacing: .5px;
+    }
+    .model-card h3 {
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .model-target {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--quiet);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .model-desc {
+      font-size: 13.5px;
+      color: var(--ink);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .model-deliverables {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-bottom: 22px;
+      padding: 14px;
+      background: var(--silver);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .model-deliverables li {
+      font-size: 13px;
+      color: var(--ink);
+      padding-left: 18px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .model-deliverables li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--outcome-green);
+      font-weight: 800;
+    }
+
+    /* ====== STRATEGIC COMMENTARY GRID ====== */
+    .commentary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .commentary-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all .2s;
+    }
+    .commentary-card:hover {
+      border-color: var(--steel);
+      box-shadow: 0 4px 20px rgba(16,39,68,.05);
+    }
+    .commentary-card header {
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    .commentary-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+    .commentary-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent-blue);
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .commentary-meta span {
+      background: var(--silver);
+      border: 1px solid var(--line);
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+    .commentary-body {
+      font-size: 13.5px;
+      color: var(--quiet);
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    .commentary-takeaway {
+      background: var(--outcome-bg);
+      border: 1px solid var(--outcome-border);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-top: auto;
+    }
+
+    /* ====== ARTIFACTS HUB ====== */
+    .artifacts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .artifact-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all .2s;
+    }
+    .artifact-card:hover {
+      border-color: var(--steel);
+      box-shadow: 0 4px 16px rgba(16,39,68,.05);
+    }
+    .artifact-card h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .artifact-card p {
+      font-size: 13px;
+      color: var(--quiet);
+      line-height: 1.55;
+      margin-bottom: 16px;
     }
 
     /* ====== CASE FILTERS ====== */
@@ -635,7 +840,7 @@
     .portfolio-cta p {
       font-size: 15px;
       color: var(--quiet);
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto 24px;
       line-height: 1.6;
     }
@@ -711,9 +916,12 @@
 
     <nav aria-label="Main navigation" class="main-nav">
       <a href="#portfolio" class="active">Live Systems</a>
+      <a href="#engagement-models">Engagement Pipelines</a>
+      <a href="#commentary">Executive Commentary</a>
       <a href="#case-studies">Case Studies</a>
+      <a href="/deck" target="_blank">Executive Deck 📄</a>
       <a href="#experience">Experience</a>
-      <a href="#skills">Engineering Standards</a>
+      <a href="#skills">Standards</a>
       <a href="#contact">Contact</a>
     </nav>
 
@@ -723,18 +931,23 @@
         <span>@amareshdas3-eng</span>
       </a>
       <button class="theme-toggle-btn" id="themeToggle" title="Toggle Light / Dark Mode" aria-label="Toggle theme">◐</button>
-      <a href="#contact" class="button">Get in Touch →</a>
+      <a href="#engagement-models" class="button">Book Discovery →</a>
     </div>
   </header>
 
   <!-- ====== PAGE INTRO / HERO ====== -->
   <section class="page-intro" id="top">
     <div class="container">
-      <span class="eyebrow">CAPITAL PROJECTS LEADERSHIP · AGENTIC AI · INDUSTRIAL PLANT RELIABILITY</span>
-      <h1>Engineering precision.<br/><span style="color:var(--accent-blue)">Digital advantage.</span></h1>
+      <span class="eyebrow">CAPITAL PROJECTS DIRECTOR · PLANT RELIABILITY &amp; RCA · INDUSTRIAL AI WORKFLOWS</span>
+      <h1>Engineering precision.<br/><span style="color:var(--accent-blue)">Visible authority.</span></h1>
       <p class="page-intro-lead">
-        PMP®-certified Senior Project Manager &amp; Electrical Engineer with <strong>23+ years</strong> delivering <strong>$200M+</strong> heavy industrial CAPEX across substations, captive power plants, and MCC facilities. Architecting and shipping production multi-agent systems and real-time engineering workbenches.
+        PMP®-certified Senior Project Manager &amp; Electrical Engineer with <strong>23+ years</strong> directing <strong>$200M+</strong> heavy industrial CAPEX programs across substations, captive power plants, and MCC facilities. Specializing in asynchronous cross-border delivery—leading multidisciplinary engineering squads and $25M+ vendor packages across distributed global time zones with zero reliance on daily physical presence.
       </p>
+
+      <div class="async-badge">
+        <span class="async-dot"></span>
+        <span>Available for Global Remote Leadership, Fractional Owner's Engineer Retainers &amp; Diagnostic Turnaround Sprints</span>
+      </div>
 
       <div class="metrics-bar">
         <div class="metric-cell">
@@ -761,6 +974,247 @@
         <a href="mailto:amaresh.das3@gmail.com" class="contact-pill highlight"><span>📧</span> amaresh.das3@gmail.com</a>
         <a href="https://linkedin.com/in/amaresh-das" target="_blank" rel="noopener noreferrer" class="contact-pill"><span>🔗</span> linkedin.com/in/amaresh-das</a>
         <a href="https://github.com/amareshdas3-eng" target="_blank" rel="noopener noreferrer" class="contact-pill highlight"><span>💻</span> github.com/amareshdas3-eng</a>
+        <a href="/deck" target="_blank" class="contact-pill highlight"><span>📄</span> View Executive Deck (2-Page A4)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== INBOUND ENGAGEMENT PIPELINES ====== -->
+  <section id="engagement-models" style="background:var(--bg);border-bottom:1px solid var(--line)">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">COMMERCIAL ENGAGEMENT MODELS</span>
+          <h2>Three High-Value Inbound Pipelines.</h2>
+          <p>Select the engagement model that directly resolves your critical path bottleneck—from strategic ongoing oversight to rapid emergency fault resolution.</p>
+        </div>
+        <a href="/deck" target="_blank" class="button-secondary">
+          Download Executive Capability Deck →
+        </a>
+      </div>
+
+      <div class="models-grid">
+        
+        <!-- Pipeline 1 -->
+        <div class="model-card">
+          <div>
+            <span class="model-badge">PIPELINE 1 · FRACTIONAL RETAINER</span>
+            <h3>Fractional Owner's Engineer &amp; Gatekeeper</h3>
+            <div class="model-target">
+              <span>🎯 Best for:</span> Private Equity Operating Partners &amp; Industrial Asset Holders
+            </div>
+            <p class="model-desc">
+              Dedicated senior engineering oversight (10–20 hours/month) for pre-bid technical audits, vendor package qualification, and commissioning stage-gate hold points.
+            </p>
+            <ul class="model-deliverables">
+              <li>Pre-bid specification review &amp; scope gap discovery</li>
+              <li>Vendor package FAT/SAT technical due diligence</li>
+              <li>Commissioning hold-point verification &amp; grid compliance</li>
+              <li>Weekly asynchronous risk digest &amp; ad-hoc decision calls</li>
+            </ul>
+          </div>
+          <a href="mailto:amaresh.das3@gmail.com?subject=Inquiry:%20Fractional%20Owner's%20Engineer%20Retainer" class="button" style="width:100%">
+            Engage as Fractional Lead →
+          </a>
+        </div>
+
+        <!-- Pipeline 2 -->
+        <div class="model-card" style="border-color:var(--accent-blue)">
+          <div>
+            <span class="model-badge" style="background:var(--outcome-bg);color:var(--outcome-green);border-color:var(--outcome-border)">PIPELINE 2 · RAPID INTERVENTION</span>
+            <h3>Critical Incident RCA &amp; Turnaround Sprint</h3>
+            <div class="model-target">
+              <span>⚡ Best for:</span> Operating Plants Facing Unplanned Outages &amp; Tripping Cascades
+            </div>
+            <p class="model-desc">
+              High-intensity 2 to 4-week forensic diagnostic triage. Reconstructs sub-second 1ms Sequence of Events (SOE) chronologies, audits protective relay curves, and produces an audit-proof RCA.
+            </p>
+            <ul class="model-deliverables">
+              <li>1ms SOE chronology reconstruction &amp; root trip isolation</li>
+              <li>IEEE C37.2 &amp; IEC 60255 protection curve coordination audit</li>
+              <li>Formal Popperian hypothesis refutation evidence contract</li>
+              <li>Executive turnaround action plan &amp; CMMS work orders</li>
+            </ul>
+          </div>
+          <a href="mailto:amaresh.das3@gmail.com?subject=Emergency:%20Diagnostic%20Turnaround%20Sprint" class="button" style="width:100%;background:var(--accent-blue)">
+            Initiate Turnaround Sprint →
+          </a>
+        </div>
+
+        <!-- Pipeline 3 -->
+        <div class="model-card">
+          <div>
+            <span class="model-badge">PIPELINE 3 · FULL-TIME REMOTE</span>
+            <h3>Program Director / Senior Remote PM</h3>
+            <div class="model-target">
+              <span>🏛️ Best for:</span> Global EPC/EPCMs &amp; Hyperscale Infrastructure Developers
+            </div>
+            <p class="model-desc">
+              Full-time leadership directing multi-year capital programs ($25M+ to $100M+ CAPEX) from FEED through EPC contractor management and commercial operations.
+            </p>
+            <ul class="model-deliverables">
+              <li>End-to-end CAPEX program governance &amp; P6 schedule controls</li>
+              <li>Cross-border engineering package &amp; vendor orchestration</li>
+              <li>Zero LTI statutory safety leadership &amp; quality audits</li>
+              <li>Deployment of modern agentic AI project controls suites</li>
+            </ul>
+          </div>
+          <a href="mailto:amaresh.das3@gmail.com?subject=Leadership:%20Senior%20Remote%20Program%20Director%20Role" class="button-secondary" style="width:100%">
+            Review Leadership Profile →
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== STRATEGIC EXECUTIVE COMMENTARY ====== -->
+  <section id="commentary" style="background:var(--bg-alt);border-bottom:1px solid var(--line)">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">STRATEGIC EXECUTIVE COMMENTARY &amp; TEARDOWNS</span>
+          <h2>Forensic Engineering Analyses.</h2>
+          <p>Real-world diagnostic breakdowns analyzing expensive industrial bottlenecks, switchgear delays, change-order blowouts, and grid islanding challenges—grounded in international engineering standards (IEEE, IEC) and field execution data.</p>
+        </div>
+        <a href="#portfolio" class="button-secondary">
+          Explore Live Systems →
+        </a>
+      </div>
+
+      <div class="commentary-grid">
+        
+        <!-- Commentary 01 -->
+        <article class="commentary-card">
+          <div>
+            <header>
+              <span class="eyebrow">COMMISSIONING PROTOCOL · IEC 62271 / IEEE C37.2</span>
+              <h3>Why 33kV Switchgear Commissioning Delays are 80% Avoidable</h3>
+            </header>
+            <div class="commentary-meta">
+              <span>IEC 62271</span><span>IEEE C37.20</span><span>72-Hr Hold Point</span>
+            </div>
+            <p class="commentary-body">
+              Substation switchboards routinely sit energized but idle for weeks due to interlock mismatches and unverified CT/PT secondary polarities. In 23+ years across heavy industrial installations, 80% of commissioning delays trace back to skipping secondary injection cold loops before energization. Mandating a non-negotiable 72-hour pre-commissioning hold point with primary breaker timing tests eliminates last-minute contractor panics.
+            </p>
+          </div>
+          <div class="commentary-takeaway">
+            ✓ Executive Takeaway: Never accept vendor "factory pre-commissioned" certificates without certified secondary loop injection on-site.
+          </div>
+        </article>
+
+        <!-- Commentary 02 -->
+        <article class="commentary-card">
+          <div>
+            <header>
+              <span class="eyebrow">CONTRACT GOVERNANCE · SPECIFICATION AMBIGUITY</span>
+              <h3>The Anatomy of EPC Change-Order Blowouts</h3>
+            </header>
+            <div class="commentary-meta">
+              <span>FIDIC Contracts</span><span>BIM Clash</span><span>Pre-Bid Takeoff</span>
+            </div>
+            <p class="commentary-body">
+              Contractors rarely lose money on the initial bid; they make their margins on specification gray areas between civil, structural, and electrical scopes. When an unassigned cable trench or missing auxiliary battery sizing triggers an RFI cascade, owners face 15–25% CAPEX escalation. Deploying automated specification cross-referencing during pre-bid review catches these ambiguities before signing.
+            </p>
+          </div>
+          <div class="commentary-takeaway">
+            ✓ Executive Takeaway: Ambiguous interface handoffs between EPC contractors cost 10x more to fix post-award than during tender evaluation.
+          </div>
+        </article>
+
+        <!-- Commentary 03 -->
+        <article class="commentary-card">
+          <div>
+            <header>
+              <span class="eyebrow">PROTECTION COORDINATION · SUBSTATION DIAGNOSTICS</span>
+              <h3>Preventing Substation Tripping Cascades</h3>
+            </header>
+            <div class="commentary-meta">
+              <span>ANSI 50/51/87</span><span>1ms SOE</span><span>Neo4j Graph</span>
+            </div>
+            <p class="commentary-body">
+              When an incomer trips simultaneously with downstream feeder breakers, traditional investigations rely on post-incident committee debates. Static alarm logs don't reveal the initiating fault. By reconstructing Sequence of Events (SOE) chronologies down to 1-millisecond resolution across numerical protection relays, engineers can instantly differentiate between an initiating stator breakdown and sympathetic cascade clearing.
+            </p>
+          </div>
+          <div class="commentary-takeaway">
+            ✓ Executive Takeaway: 1ms SOE resolution transforms tripping investigations from subjective guesswork to mathematical certainty.
+          </div>
+        </article>
+
+        <!-- Commentary 04 -->
+        <article class="commentary-card">
+          <div>
+            <header>
+              <span class="eyebrow">POWER GENERATION · DYNAMIC ISLANDING · IEEE 399</span>
+              <h3>Industrial Grid Decarbonization &amp; Fast Islanding</h3>
+            </header>
+            <div class="commentary-meta">
+              <span>IEEE 399</span><span>GOOSE Messaging</span><span>Sub-80ms Shed</span>
+            </div>
+            <p class="commentary-body">
+              As regional utility grids incorporate more intermittent renewables, industrial plants experience severe transient frequency decay. Standard under-frequency relays (ANSI 81) operate too slowly, allowing the captive generator to trip on reverse power. Implementing optical GOOSE-based df/dt fast load shedding decouples non-essential feeders in under 80ms, ensuring continuous manufacturing continuity.
+            </p>
+          </div>
+          <div class="commentary-takeaway">
+            ✓ Executive Takeaway: Sub-80ms dynamic load shedding is mandatory insurance for heavy industrial plants operating captive generation.
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== DOWNLOADABLE ARTIFACTS HUB ====== -->
+  <section id="artifacts" style="background:var(--bg);border-bottom:1px solid var(--line)">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">EXECUTIVE ARTIFACTS &amp; DIAGNOSTIC FRAMEWORKS</span>
+          <h2>Actionable Engineering Assets.</h2>
+          <p>Directly inspect executive-grade capability briefs, audit checklists, and evaluation matrices designed for immediate deployment by engineering managers and operations directors.</p>
+        </div>
+      </div>
+
+      <div class="artifacts-grid">
+        <div class="artifact-card">
+          <div>
+            <h4>📄 Executive Capability Deck (A4 Brief)</h4>
+            <p>Complete 2-page executive capability summary covering career project milestones ($200M+), remote operating models, rate cards, and production AI architectures.</p>
+          </div>
+          <a href="/deck" target="_blank" class="button-secondary" style="width:100%">
+            Open Interactive Deck →
+          </a>
+        </div>
+
+        <div class="artifact-card">
+          <div>
+            <h4>📋 Pre-Bid Specification Review Checklist</h4>
+            <p>Battle-tested checklist covering 20 critical engineering risk factors across MV/LV switchgear, transformer sizing, earthing studies, and EPC commercial scope splits.</p>
+          </div>
+          <a href="https://github.com/amareshdas3-eng/capital-projects-authority-platform/blob/main/03_High_Signal_Proof_of_Work/frameworks_and_checklists/pre_bid_specification_review_checklist.md" target="_blank" class="button-secondary" style="width:100%">
+            View Checklist (GitHub) →
+          </a>
+        </div>
+
+        <div class="artifact-card">
+          <div>
+            <h4>📊 Plant Reliability &amp; RCM Matrix</h4>
+            <p>Quantitative evaluation matrix scoring critical equipment health, DGA gas ratios, vibration limits, and thermographic thresholds for 11kV substations and MCCs.</p>
+          </div>
+          <a href="https://github.com/amareshdas3-eng/capital-projects-authority-platform/blob/main/03_High_Signal_Proof_of_Work/frameworks_and_checklists/plant_reliability_evaluation_matrix.md" target="_blank" class="button-secondary" style="width:100%">
+            View Matrix (GitHub) →
+          </a>
+        </div>
+
+        <div class="artifact-card">
+          <div>
+            <h4>⏱️ Schedule Health Diagnostic Framework</h4>
+            <p>Primavera P6 float integrity audit protocol identifying critical path compression risks, negative floats, and unrealistic contractor vendor delivery lead times.</p>
+          </div>
+          <a href="https://github.com/amareshdas3-eng/capital-projects-authority-platform/blob/main/03_High_Signal_Proof_of_Work/frameworks_and_checklists/schedule_health_diagnostic_framework.md" target="_blank" class="button-secondary" style="width:100%">
+            View Framework (GitHub) →
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -1106,6 +1560,22 @@
           </div>
         </article>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FLAGSHIP INDUSTRIAL CASE STUDIES ====== -->
+  <section id="case-studies" style="background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">INDUSTRIAL CAPITAL PROJECT CASE STUDIES</span>
+          <h2>Landmark Infrastructure Delivery.</h2>
+          <p>Verified project milestones across high-voltage transmission interconnects, captive generation islanding, mission-critical data centers, and brownfield GIS modernizations.</p>
+        </div>
+      </div>
+
+      <div class="case-list">
         <!-- Case 07: 132/33kV Substation -->
         <article class="case-card" data-category="substations">
           <header>
@@ -1279,13 +1749,12 @@
             <span>Verified Outcome: Reduced incident energy from 42 cal/cm² to &lt;8 cal/cm² (Category 2 PPE), protecting operations personnel and ensuring OSHA/NFPA compliance.</span>
           </div>
         </article>
-
       </div>
     </div>
   </section>
 
   <!-- ====== EXPERIENCE ====== -->
-  <section id="experience" style="background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <section id="experience" style="background:var(--bg);border-bottom:1px solid var(--line)">
     <div class="container">
       <div class="section-heading">
         <div>
@@ -1374,7 +1843,7 @@
   </section>
 
   <!-- ====== SKILLS & STANDARDS ====== -->
-  <section id="skills">
+  <section id="skills" style="background:var(--bg-alt);border-bottom:1px solid var(--line)">
     <div class="container">
       <div class="section-heading">
         <div>
@@ -1446,10 +1915,13 @@
       <div class="portfolio-cta" id="contact">
         <span class="eyebrow">DISCOVERY &amp; CONSULTATION</span>
         <h2>Have an engineering challenge or capital program in mind?</h2>
-        <p>Targeting Senior Remote PM, Program Director, Owner's Engineer, or Reliability Advisory roles globally. Available for fractional advisory, project turnaround, and full-time senior remote engagements.</p>
+        <p>Targeting Senior Remote PM, Program Director, Owner's Engineer, or Reliability Advisory roles globally. Available for fractional advisory, project turnaround sprints, and full-time senior remote engagements.</p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
           <a href="mailto:amaresh.das3@gmail.com" class="button">
             📧 Email: amaresh.das3@gmail.com
+          </a>
+          <a href="/deck" target="_blank" class="button" style="background:var(--accent-blue)">
+            📄 Executive Capability Deck (A4)
           </a>
           <a href="https://linkedin.com/in/amaresh-das" target="_blank" rel="noopener noreferrer" class="button-secondary">
             🔗 Connect on LinkedIn
@@ -1492,13 +1964,12 @@
         </div>
 
         <div class="footer-col">
-          <h4>Engineering Credentials</h4>
-          <a href="#experience">PMP® Certification</a>
-          <a href="#portfolio">132kV/33kV Substations</a>
-          <a href="#portfolio">40MW Captive Power Plants</a>
-          <a href="#skills">IEEE &amp; IEC Compliance</a>
-          <a href="#experience">Deepak Mining CAPEX</a>
-          <a href="#experience">Aditya Birla Alumina</a>
+          <h4>Engagement Models</h4>
+          <a href="#engagement-models">Fractional Owner's Engineer</a>
+          <a href="#engagement-models">Diagnostic Turnaround Sprint</a>
+          <a href="#engagement-models">Senior Remote PM Leadership</a>
+          <a href="/deck" target="_blank">Executive Capability Deck</a>
+          <a href="#commentary">Forensic Teardowns</a>
         </div>
 
         <div class="footer-col">
@@ -1506,7 +1977,7 @@
           <a href="mailto:amaresh.das3@gmail.com">amaresh.das3@gmail.com</a>
           <a href="https://linkedin.com/in/amaresh-das" target="_blank">LinkedIn Profile</a>
           <a href="https://github.com/amareshdas3-eng" target="_blank">GitHub (@amareshdas3-eng)</a>
-          <a href="tel:+919437085609">+91 94370 85609</a>
+          <a href="tel:+919437085609">+91 94370 85609 / +1 628 296 2962</a>
           <a href="#">Odisha, India (Global Remote)</a>
         </div>
       </div>
@@ -1529,7 +2000,6 @@
       document.documentElement.setAttribute('data-theme', savedTheme);
       themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '◐';
     } else if (prefersDark) {
-      // Default to crisp light mode like proengineering.in, but allow dark
       document.documentElement.setAttribute('data-theme', 'light');
       themeToggle.textContent = '◐';
     }
