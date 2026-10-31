@@ -1,0 +1,1004 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Amaresh Das — Senior PM · Electrical Engineer · AI Portfolio</title>
+  <meta name="description" content="PMP-certified Senior Project Manager and Electrical Engineer with 23+ years delivering $200M+ industrial CAPEX. Production AI solutions deployed. Remote-ready.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#080c14; --bg2:#0d1421; --surface:#111927; --surface2:#162032;
+      --border:#1e2d45; --border2:#253550;
+      --text:#e8edf5; --text2:#8fa3bf; --text3:#5a7394;
+      --accent:#38bdf8; --accent2:#7dd3fc; --accent-glow:rgba(56,189,248,.18);
+      --amber:#f59e0b; --amber2:#fbbf24; --amber-glow:rgba(245,158,11,.15);
+      --emerald:#10b981; --emerald2:#34d399;
+      --red:#f87171;
+      --font:"Outfit",system-ui,sans-serif;
+      --mono:"JetBrains Mono",ui-monospace,monospace;
+      --r:12px;
+    }
+    @media(prefers-color-scheme:light){
+      :root{--bg:#f5f7fa;--bg2:#eef2f7;--surface:#ffffff;--surface2:#f0f4fa;
+        --border:#d8e2ef;--border2:#c5d3e5;--text:#0f1b2d;--text2:#3d5275;--text3:#7a92b4;
+        --accent:#0284c7;--accent2:#0ea5e9;--accent-glow:rgba(2,132,199,.08);
+        --amber:#d97706;--amber2:#f59e0b;--amber-glow:rgba(217,119,6,.08);
+        --emerald:#059669;--emerald2:#10b981;}
+      :root[data-theme="dark"]{
+        --bg:#080c14;--bg2:#0d1421;--surface:#111927;--surface2:#162032;
+        --border:#1e2d45;--border2:#253550;--text:#e8edf5;--text2:#8fa3bf;--text3:#5a7394;
+        --accent:#38bdf8;--accent2:#7dd3fc;--accent-glow:rgba(56,189,248,.18);
+        --amber:#f59e0b;--amber2:#fbbf24;--amber-glow:rgba(245,158,11,.15);
+        --emerald:#10b981;--emerald2:#34d399;}
+    }
+    :root[data-theme="light"]{--bg:#f5f7fa;--bg2:#eef2f7;--surface:#ffffff;--surface2:#f0f4fa;
+      --border:#d8e2ef;--border2:#c5d3e5;--text:#0f1b2d;--text2:#3d5275;--text3:#7a92b4;
+      --accent:#0284c7;--accent2:#0ea5e9;--accent-glow:rgba(2,132,199,.08);
+      --amber:#d97706;--amber2:#f59e0b;--amber-glow:rgba(217,119,6,.08);
+      --emerald:#059669;--emerald2:#10b981;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;font-size:16px}
+    body{
+      font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;
+      -webkit-font-smoothing:antialiased;overflow-x:hidden;
+    }
+    ::selection{background:var(--accent);color:#000}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:var(--bg2)}
+    ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--text3)}
+    a{color:var(--accent);text-decoration:none;transition:color .2s}
+    a:hover{color:var(--accent2);text-decoration:none}
+    img{max-width:100%;display:block}
+    h1,h2,h3,h4{font-family:var(--font);font-weight:700;color:var(--text);line-height:1.2}
+    .mono{font-family:var(--mono)}
+    .container{max-width:1120px;margin:0 auto;padding:0 1.5rem}
+    .btn{
+      display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1.4rem;
+      border-radius:8px;font-size:.875rem;font-weight:600;font-family:var(--font);
+      border:none;cursor:pointer;transition:all .2s;text-decoration:none;
+    }
+    .btn-primary{
+      background:var(--accent);color:#000;
+    }
+    .btn-primary:hover{background:var(--accent2);color:#000;transform:translateY(-1px);box-shadow:0 4px 20px var(--accent-glow)}
+    .btn-outline{
+      background:transparent;color:var(--accent);border:1.5px solid var(--accent);
+    }
+    .btn-outline:hover{background:var(--accent-glow);color:var(--accent2);transform:translateY(-1px)}
+    .tag{
+      display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .7rem;
+      border-radius:999px;font-size:.72rem;font-weight:600;letter-spacing:.02em;
+    }
+    .tag-blue{background:rgba(56,189,248,.12);color:var(--accent2);border:1px solid rgba(56,189,248,.3)}
+    .tag-amber{background:rgba(245,158,11,.12);color:var(--amber2);border:1px solid rgba(245,158,11,.3)}
+    .tag-green{background:rgba(16,185,129,.1);color:var(--emerald2);border:1px solid rgba(16,185,129,.3)}
+    .tag-dark{background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+    .pill-dot::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor}
+
+    /* NAV */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:100;padding:.75rem 1.5rem;
+      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      background:rgba(8,12,20,.75);border-bottom:1px solid transparent;
+      transition:border-color .3s,background .3s;
+    }
+    nav.scrolled{background:rgba(8,12,20,.9);border-bottom-color:var(--border)}
+    nav .container{display:flex;align-items:center;justify-content:space-between;max-width:1120px;margin:0 auto}
+    .nav-brand{display:flex;align-items:center;gap:.75rem;font-weight:700;font-size:.95rem}
+    .nav-logo{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--amber));display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:#000}
+    .nav-links{display:flex;gap:0;align-items:center}
+    .nav-links a{padding:.4rem .75rem;font-size:.82rem;font-weight:500;color:var(--text2);border-radius:6px;transition:all .2s}
+    .nav-links a:hover{color:var(--text);background:var(--surface2)}
+    .nav-right{display:flex;align-items:center;gap:.75rem}
+    .theme-toggle{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .2s}
+    .theme-toggle:hover{border-color:var(--accent);color:var(--accent)}
+    @media(max-width:700px){
+      .nav-links{display:none}
+      .nav-brand span:last-child{display:none}
+    }
+
+    /* HERO */
+    .hero{
+      min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:6rem 0 4rem;
+    }
+    .hero-bg{
+      position:absolute;inset:0;z-index:0;
+      background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(56,189,248,.12) 0%,transparent 70%),
+                  radial-gradient(ellipse 60% 40% at 80% 80%,rgba(245,158,11,.06) 0%,transparent 60%);
+    }
+    .hero-grid{
+      position:absolute;inset:0;z-index:0;opacity:.03;
+      background-image:linear-gradient(var(--text3) 1px,transparent 1px),linear-gradient(90deg,var(--text3) 1px,transparent 1px);
+      background-size:60px 60px;
+    }
+    .hero .container{position:relative;z-index:1;width:100%}
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:.5rem;padding:.35rem 1rem;
+      border-radius:999px;border:1px solid var(--border2);background:var(--surface);
+      font-size:.78rem;font-weight:500;color:var(--text2);margin-bottom:1.5rem;
+    }
+    .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--emerald);box-shadow:0 0 8px var(--emerald);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;letter-spacing:-.02em;margin-bottom:.75rem;line-height:1.05}
+    .hero h1 .line{display:block}
+    .hero h1 .accent{background:linear-gradient(135deg,var(--accent),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:1.1rem;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:2rem}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:3rem}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center}
+    .hero-meta-item{display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--text2)}
+    .hero-meta-item .icon{font-size:.9rem}
+    .hero-stats{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:2.5rem;max-width:720px;
+    }
+    .hero-stat{background:var(--surface);padding:1.25rem 1.5rem;text-align:center;transition:background .2s}
+    .hero-stat:hover{background:var(--surface2)}
+    .hero-stat .num{font-size:1.75rem;font-weight:900;color:var(--accent);display:block;line-height:1}
+    .hero-stat .label{font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-top:.25rem;display:block}
+    .hero-visual{
+      position:absolute;right:-2%;top:50%;transform:translateY(-50%);width:38%;max-width:500px;opacity:.15;z-index:0;
+    }
+    @media(max-width:900px){.hero-visual{display:none}.hero-stats{max-width:100%}}
+
+    /* SECTIONS */
+    section{padding:5rem 0}
+    .section-label{
+      display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:700;text-transform:uppercase;
+      letter-spacing:.1em;color:var(--text3);margin-bottom:.75rem;
+    }
+    .section-label::after{content:"";flex:1;max-width:40px;height:1px;background:var(--border2)}
+    .section-title{font-size:clamp(1.6rem,3vw,2.25rem);font-weight:800;letter-spacing:-.01em;margin-bottom:.75rem}
+    .section-sub{font-size:1rem;color:var(--text2);max-width:600px;line-height:1.65;margin-bottom:2.5rem}
+
+    /* CARDS */
+    .card{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+      padding:1.5rem;transition:all .25s;
+    }
+    .card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+    .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1rem}
+    .card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.75rem}
+    .card-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+    .card-icon.blue{background:rgba(56,189,248,.12);color:var(--accent)}
+    .card-icon.amber{background:rgba(245,158,11,.12);color:var(--amber)}
+    .card-icon.green{background:rgba(16,185,129,.1);color:var(--emerald)}
+    .card h3{font-size:.95rem;font-weight:700;margin-bottom:.3rem}
+    .card p{font-size:.85rem;color:var(--text2);line-height:1.6}
+    .card-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.75rem}
+
+    /* AI PROJECT CARDS */
+    .ai-card{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+      overflow:hidden;transition:all .25s;
+    }
+    .ai-card:hover{border-color:var(--accent);box-shadow:0 0 30px var(--accent-glow)}
+    .ai-card-banner{
+      height:120px;display:flex;align-items:center;justify-content:center;
+      font-size:2.5rem;position:relative;overflow:hidden;
+    }
+    .ai-card-banner::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(135deg,var(--accent-glow),var(--amber-glow));
+    }
+    .ai-card-banner span{position:relative;z-index:1}
+    .ai-card-body{padding:1.5rem}
+    .ai-card h3{font-size:1.05rem;margin-bottom:.4rem}
+    .ai-card p{font-size:.85rem;color:var(--text2);line-height:1.6;margin-bottom:.75rem}
+    .ai-metrics{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem}
+    .ai-metric{background:var(--surface2);border-radius:8px;padding:.6rem .75rem}
+    .ai-metric .val{font-size:1.2rem;font-weight:800;color:var(--accent)}
+    .ai-metric .lbl{font-size:.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em}
+    .ai-card-body .tag{margin-bottom:.5rem}
+
+    /* TIMELINE */
+    .timeline{position:relative;padding-left:2rem}
+    .timeline::before{content:"";position:absolute;left:0;top:.5rem;bottom:.5rem;width:1px;background:linear-gradient(to bottom,var(--accent),var(--amber),transparent)}
+    .timeline-item{position:relative;padding-bottom:2rem}
+    .timeline-item:last-child{padding-bottom:0}
+    .timeline-item::before{content:"";position:absolute;left:-2rem;top:.5rem;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 10px var(--accent)}
+    .tl-header{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.4rem}
+    .tl-role{font-size:1rem;font-weight:700}
+    .tl-company{font-size:.85rem;color:var(--text2);margin-top:.1rem}
+    .tl-date{font-size:.78rem;color:var(--text3);white-space:nowrap;font-family:var(--mono)}
+    .tl-desc{font-size:.85rem;color:var(--text2);line-height:1.6;margin-top:.5rem}
+    .tl-achievements{list-style:none;margin-top:.5rem;display:grid;gap:.3rem}
+    .tl-achievements li{font-size:.82rem;color:var(--text2);padding-left:1rem;position:relative}
+    .tl-achievements li::before{content:"→";position:absolute;left:0;color:var(--accent);font-size:.7rem;top:.05rem}
+
+    /* SKILLS */
+    .skill-group{margin-bottom:1.5rem}
+    .skill-group-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem}
+    .skill-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+    .skill-tag{
+      padding:.3rem .7rem;border-radius:6px;font-size:.78rem;font-weight:500;
+      background:var(--surface2);border:1px solid var(--border);color:var(--text2);
+      transition:all .2s;cursor:default;
+    }
+    .skill-tag:hover{border-color:var(--accent);color:var(--accent)}
+    .skill-tag.primary{border-color:rgba(56,189,248,.4);background:rgba(56,189,248,.08);color:var(--accent2)}
+    .skill-tag.amber{border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.06);color:var(--amber2)}
+    .skill-tag.green{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.06);color:var(--emerald2)}
+
+    /* SPLIT LAYOUT */
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+    @media(max-width:800px){.split{grid-template-columns:1fr;gap:2rem}}
+
+    /* AWARD STRIP */
+    .award-strip{
+      display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;
+    }
+    .award-item{
+      display:flex;align-items:center;gap:.5rem;padding:.4rem .9rem;
+      background:var(--surface2);border:1px solid var(--border);border-radius:999px;
+      font-size:.8rem;font-weight:500;color:var(--text2);
+    }
+    .award-item .icon{color:var(--amber)}
+
+    /* CTA */
+    .cta-section{
+      padding:5rem 0;background:linear-gradient(135deg,var(--surface) 0%,var(--bg2) 100%);
+      border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    }
+    .cta-box{
+      background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(245,158,11,.05));
+      border:1px solid rgba(56,189,248,.2);border-radius:16px;
+      padding:3rem;text-align:center;
+    }
+    .cta-box h2{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:.75rem}
+    .cta-box p{color:var(--text2);max-width:500px;margin:0 auto 1.75rem;font-size:1rem}
+    .cta-actions{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center}
+
+    /* FOOTER */
+    footer{
+      padding:3rem 0 2rem;border-top:1px solid var(--border);
+    }
+    .footer-grid{
+      display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2rem;
+      margin-bottom:2.5rem;
+    }
+    @media(max-width:700px){.footer-grid{grid-template-columns:1fr}}
+    .footer-brand{font-size:1.05rem;font-weight:800;margin-bottom:.5rem}
+    .footer-sub{font-size:.85rem;color:var(--text2);line-height:1.65}
+    .footer-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:.75rem;font-weight:700}
+    .footer-col a{display:block;font-size:.85rem;color:var(--text2);padding:.25rem 0;transition:color .2s}
+    .footer-col a:hover{color:var(--accent)}
+    .footer-bottom{
+      border-top:1px solid var(--border);padding-top:1.5rem;
+      display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.75rem;
+      font-size:.78rem;color:var(--text3);
+    }
+
+    /* DIVIDER */
+    .divider{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);margin:5rem 0}
+
+    /* CODE PREVIEW */
+    .code-preview{
+      background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);
+      overflow:hidden;margin-top:1rem;
+    }
+    .code-preview-header{
+      display:flex;align-items:center;gap:.5rem;padding:.6rem 1rem;
+      border-bottom:1px solid var(--border);background:var(--surface);
+    }
+    .code-dots{display:flex;gap:.35rem}
+    .code-dot{width:10px;height:10px;border-radius:50%}
+    .code-dot:nth-child(1){background:#f87171}
+    .code-dot:nth-child(2){background:#fbbf24}
+    .code-dot:nth-child(3){background:#34d399}
+    .code-preview-filename{font-family:var(--mono);font-size:.72rem;color:var(--text3);margin-left:.5rem}
+    .code-preview pre{
+      padding:1rem 1.25rem;margin:0;overflow-x:auto;font-family:var(--mono);
+      font-size:.82rem;line-height:1.7;color:var(--text2);
+    }
+    .code-preview .kw{color:var(--accent2)}
+    .code-preview .str{color:var(--emerald2)}
+    .code-preview .fn{color:var(--amber2)}
+    .code-preview .cm{color:var(--text3)}
+    .code-preview .num{color:var(--red)}
+
+    /* GRADIENT TEXT */
+    .gradient-text{
+      background:linear-gradient(135deg,var(--accent),var(--amber));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    }
+
+    /* PROFILE SUMMARY BOX */
+    .summary-box{
+      background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+      padding:1.75rem;border-left:4px solid var(--accent);
+    }
+    .summary-box h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:.75rem}
+    .summary-box p{font-size:.92rem;color:var(--text2);line-height:1.7}
+
+    /* CONTACT BAR */
+    .contact-bar{
+      display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;
+      padding:1rem 1.5rem;background:var(--surface);border:1px solid var(--border);
+      border-radius:var(--r);margin-top:2rem;
+    }
+    .contact-item{display:flex;align-items:center;gap:.4rem;font-size:.82rem;color:var(--text2)}
+    .contact-item .ci{width:28px;height:28px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.8rem}
+
+    /* MARQUEE */
+    .marquee-wrap{overflow:hidden;mask-image:linear-gradient(to right,transparent,black 10%,black 90%,transparent)}
+    .marquee-track{display:flex;gap:1rem;animation:marquee 25s linear infinite;width:max-content}
+    .marquee-track:hover{animation-play-state:paused}
+    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .marquee-item{
+      padding:.4rem 1rem;border-radius:999px;font-size:.78rem;font-weight:500;
+      white-space:nowrap;background:var(--surface2);border:1px solid var(--border);color:var(--text2);
+    }
+    .marquee-item.accent{border-color:rgba(56,189,248,.3);color:var(--accent2);background:rgba(56,189,248,.06)}
+    .marquee-item.amber{border-color:rgba(245,158,11,.3);color:var(--amber2);background:rgba(245,158,11,.06)}
+
+    /* FADE IN */
+    .fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+
+    /* PROFILE PIC PLACEHOLDER */
+    .avatar{
+      width:100px;height:100px;border-radius:50%;border:3px solid var(--accent);
+      background:linear-gradient(135deg,var(--accent),var(--amber));
+      display:flex;align-items:center;justify-content:center;font-size:2.5rem;font-weight:900;color:#000;
+      flex-shrink:0;box-shadow:0 0 30px var(--accent-glow);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== NAV ====== -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-brand">
+      <div class="nav-logo">AP</div>
+      <span>Amaresh Das</span>
+    </div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#ai-projects">AI Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">◐</button>
+      <a href="#contact" class="btn btn-primary" style="padding:.45rem 1rem;font-size:.8rem">Hire Me</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ====== HERO ====== -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Available for Remote Senior PM &amp; AI-PM Roles
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:2rem;margin-bottom:1.5rem">
+      <div class="avatar">AP</div>
+      <div>
+        <h1>
+          <span class="line">Amaresh Das</span>
+          <span class="line"><span class="accent">Senior PM · EE · AI</span></span>
+        </h1>
+        <p class="hero-sub" style="margin-bottom:1rem;max-width:520px">
+          PMP®-certified Senior Project Manager &amp; Electrical Engineer. 23+ years delivering $200M+ industrial CAPEX. Building and shipping production AI solutions — not studying them.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Let's Talk →</a>
+          <a href="#ai-projects" class="btn btn-outline">See My AI Work</a>
+        </div>
+        <div class="contact-bar">
+          <div class="contact-item"><div class="ci">📍</div> Odisha, India — Open to Global Remote</div>
+          <div class="contact-item"><div class="ci">📞</div> +91 94370 85609 / +1 628 296 2962</div>
+          <div class="contact-item"><div class="ci">📧</div> amaresh.das3@gmail.com</div>
+          <div class="contact-item"><div class="ci">🔗</div> linkedin.com/in/amaresh-das</div>
+          <div class="contact-item"><div class="ci">💻</div> github.com/amareshdas3-eng</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num" data-target="200">200</span><span class="label">$200M+ CAPEX Delivered</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">98%</span><span class="label">Equipment Availability</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">23+</span><span class="label">Years Experience</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">$8M+</span><span class="label">AI Business Value</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== MARQUEE ====== -->
+<div style="padding:1.5rem 0;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item accent">PMP® Certified</span>
+      <span class="marquee-item">Electrical Engineering</span>
+      <span class="marquee-item amber">Agentic AI</span>
+      <span class="marquee-item">$200M+ CAPEX</span>
+      <span class="marquee-item accent">LLM Development</span>
+      <span class="marquee-item">11kV Substations</span>
+      <span class="marquee-item amber">Zero LTI Record</span>
+      <span class="marquee-item">Remote-First PM</span>
+      <span class="marquee-item accent">Python &amp; JavaScript</span>
+      <span class="marquee-item">Power BI Dashboards</span>
+      <span class="marquee-item amber">Claude API</span>
+      <span class="marquee-item">Reliability Engineering</span>
+      <span class="marquee-item accent">PMP® Certified</span>
+      <span class="marquee-item">Electrical Engineering</span>
+      <span class="marquee-item amber">Agentic AI</span>
+      <span class="marquee-item">$200M+ CAPEX</span>
+      <span class="marquee-item accent">LLM Development</span>
+      <span class="marquee-item">11kV Substations</span>
+      <span class="marquee-item amber">Zero LTI Record</span>
+      <span class="marquee-item">Remote-First PM</span>
+      <span class="marquee-item accent">Python &amp; JavaScript</span>
+      <span class="marquee-item">Power BI Dashboards</span>
+      <span class="marquee-item amber">Claude API</span>
+      <span class="marquee-item">Reliability Engineering</span>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ABOUT ====== -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">From Shop Floor to <span class="gradient-text">AI-Powered PM</span></h2>
+
+    <div class="split">
+      <div>
+        <div class="summary-box">
+          <h3>Profile</h3>
+          <p>PMP®-certified Senior Project Manager and Electrical Engineering professional with 23+ years delivering large-scale industrial projects across mining, fertilizers, cement, petrochemicals, power, and port infrastructure. Proven track record managing $200M+ cumulative CAPEX, leading 40+ member engineering teams, achieving 98%+ equipment availability, and generating $8M+ in business value through project optimization, AI adoption, and maintenance excellence.</p>
+        </div>
+
+        <div style="margin-top:1.5rem">
+          <div class="section-label" style="margin-bottom:.6rem">Core Differentiator</div>
+          <p style="font-size:.92rem;color:var(--text2);line-height:1.7">
+            Most PMs talk about "learning AI." I've <strong>built and shipped it</strong>. My LLM-driven RCA agent is already in production, cutting failure investigation from <strong>14 days to under 3 hours</strong>. My Agentic AI framework covers 6 autonomous agents across the project lifecycle — 2 already live, 4 in the pipeline. I don't bring potential. I bring proof.
+          </p>
+        </div>
+
+        <div class="award-strip">
+          <div class="award-item"><span class="icon">🏆</span> Ace Award</div>
+          <div class="award-item"><span class="icon">⭐</span> Employee of the Year — 2014</div>
+          <div class="award-item"><span class="icon">🔒</span> Zero LTI Record</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:.6rem">Key Achievements</div>
+        <div style="display:grid;gap:.75rem">
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:1.5rem;font-weight:900;color:var(--accent);margin-bottom:.15rem">$200M+</div>
+            <p style="font-size:.82rem;margin:0">Cumulative CAPEX delivered across industrial, mining, and infrastructure projects</p>
+          </div>
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:1.5rem;font-weight:900;color:var(--amber);margin-bottom:.15rem">95%+</div>
+            <p style="font-size:.82rem;margin:0">Time compression on failure investigation (14 days → &lt;3 hours) via LLM agent</p>
+          </div>
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:1.5rem;font-weight:900;color:var(--emerald);margin-bottom:.15rem">98%+</div>
+            <p style="font-size:.82rem;margin:0">Equipment availability with zero LTI across active project sites</p>
+          </div>
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:1.5rem;font-weight:900;color:var(--accent);margin-bottom:.15rem">$750K</div>
+            <p style="font-size:.82rem;margin:0">Annual productivity gains from AI-assisted maintenance planning</p>
+          </div>
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:1.5rem;font-weight:900;color:var(--amber);margin-bottom:.15rem">92%</div>
+            <p style="font-size:.82rem;margin:0">On-time, on-budget delivery rate across 18+ capital initiatives</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== AI PROJECTS ====== -->
+<section id="ai-projects" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-label">Production AI</div>
+    <h2 class="section-title">AI Projects <span class="gradient-text">Already Shipped</span></h2>
+    <p class="section-sub">These aren't demos or side projects. They're production systems running in live industrial environments, generating measurable business value every day.</p>
+
+    <div class="card-grid">
+      <!-- Card 1 -->
+      <div class="ai-card">
+        <div class="ai-card-banner" style="background:linear-gradient(135deg,#0c1929 0%,#0a2540 100%)">
+          <span>🤖</span>
+        </div>
+        <div class="ai-card-body">
+          <div class="tag tag-blue pill-dot">In Production</div>
+          <h3 style="margin-top:.5rem">LLM-Driven RCA Agent</h3>
+          <p>AI-powered engineering Root-Cause Analysis solution — transforms a multi-day manual process into a structured, human-supervised workflow that engineers run directly from CMMS.</p>
+          <div class="ai-metrics">
+            <div class="ai-metric"><div class="val">95%+</div><div class="lbl">Time Reduction</div></div>
+            <div class="ai-metric"><div class="val">1,000+</div><div class="lbl">Eng. Hrs Saved/Yr</div></div>
+          </div>
+          <div class="card-tags">
+            <span class="tag tag-dark">Claude API</span>
+            <span class="tag tag-dark">JavaScript</span>
+            <span class="tag tag-dark">CMMS</span>
+            <span class="tag tag-dark">LLM</span>
+          </div>
+          <div class="code-preview" style="margin-top:.75rem">
+            <div class="code-preview-header">
+              <div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div>
+              <span class="code-preview-filename">rca_agent.js</span>
+            </div>
+            <pre><span class="cm">// Structured RCA hypothesis generation</span>
+<span class="kw">async function</span> <span class="fn">analyzeFailure</span>(faultLog) {
+  <span class="kw">const</span> context = <span class="kw">await</span> getCMMSHistory(faultLog);
+  <span class="kw">const</span> prompt = buildRCAPrompt(context, faultLog);
+  <span class="kw">const</span> result = <span class="kw">await</span> <span class="fn">claude.complete</span>({
+    prompt, model: <span class="str">'claude-sonnet-4'</span>,
+    max_tokens: <span class="num">1024</span>
+  });
+  <span class="kw">return</span> <span class="fn">parseHypotheses</span>(result, confidenceThreshold);
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="ai-card">
+        <div class="ai-card-banner" style="background:linear-gradient(135deg,#1a1400 0%,#251d00 100%)">
+          <span>⚡</span>
+        </div>
+        <div class="ai-card-body">
+          <div class="tag tag-amber pill-dot">In Production</div>
+          <h3 style="margin-top:.5rem">Schedule vs. Vendor Conflict Tracker</h3>
+          <p>Python automation that identifies vendor commitment conflicts across project schedules faster, eliminating 70% of manual schedule-validation effort.</p>
+          <div class="ai-metrics">
+            <div class="ai-metric"><div class="val">70%</div><div class="lbl">Effort Reduction</div></div>
+            <div class="ai-metric"><div class="val">60%</div><div class="lbl">Decision Speed ↑</div></div>
+          </div>
+          <div class="card-tags">
+            <span class="tag tag-dark">Python</span>
+            <span class="tag tag-dark">Excel VBA</span>
+            <span class="tag tag-dark">Automation</span>
+            <span class="tag tag-dark">SAP</span>
+          </div>
+          <div class="code-preview" style="margin-top:.75rem">
+            <div class="code-preview-header">
+              <div class="code-dots"><div class="code-dot"></div><div class="code-dot"></div><div class="code-dot"></div></div>
+              <span class="code-preview-filename">conflict_tracker.py</span>
+            </div>
+            <pre><span class="cm"># RED / AMBER / GREEN conflict scoring</span>
+<span class="kw">def</span> <span class="fn">score_conflict</span>(schedule_row, vendor_commit):
+    delta = (vendor_commit.date - schedule_row.date).days
+    <span class="kw">if</span> delta < -<span class="num">7</span>: <span class="kw">return</span> <span class="str">'RED'</span>
+    <span class="kw">elif</span> delta < <span class="num">0</span>:  <span class="kw">return</span> <span class="str">'AMBER'</span>
+    <span class="kw">else</span>:               <span class="kw">return</span> <span class="str">'GREEN'</span>
+
+results = [<span class="fn">score_conflict</span>(s, v)
+  <span class="kw">for</span> s, v <span class="kw">in</span> <span class="fn">zip</span>(schedules, commitments)]
+<span class="fn">alert_on_conflicts</span>(results, threshold=<span class="str">'AMBER'</span>)</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="ai-card">
+        <div class="ai-card-banner" style="background:linear-gradient(135deg,#001a12 0%,#002a1f 100%)">
+          <span>🧠</span>
+        </div>
+        <div class="ai-card-body">
+          <div class="tag tag-green pill-dot">Architecture Live</div>
+          <h3 style="margin-top:.5rem">Agentic AI Project Management System</h3>
+          <p>Six autonomous AI agents mapped across the full project lifecycle — planning, risk, procurement, commissioning, safety — with 40+ agent specifications designed, 2 deployed to production.</p>
+          <div class="ai-metrics">
+            <div class="ai-metric"><div class="val">6</div><div class="lbl">AI Agents</div></div>
+            <div class="ai-metric"><div class="val">$8M+</div><div class="lbl">Cumulative ROI</div></div>
+          </div>
+          <div class="card-tags">
+            <span class="tag tag-dark">Agentic AI</span>
+            <span class="tag tag-dark">LLM</span>
+            <span class="tag tag-dark">AI Workflows</span>
+            <span class="tag tag-dark">SAP + CMMS</span>
+          </div>
+          <div class="card" style="margin-top:.75rem;padding:.9rem;background:var(--surface2)">
+            <p style="font-size:.78rem;color:var(--text3);margin-bottom:.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em">Agent Map</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.25rem;font-size:.75rem;color:var(--text2)">
+              <span>🤖 Planning Agent</span><span>⚠️ Risk Agent</span>
+              <span>📦 Procurement Agent</span><span>🔧 Commissioning Agent</span>
+              <span>🛡️ Safety Agent</span><span>📊 Analytics Agent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== EXPERIENCE ====== -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Experience &amp; Impact</h2>
+    <p class="section-sub">23+ years across the full project lifecycle — from L&amp;T trainee to leading $25M+ CAPEX programs with AI-powered workflows.</p>
+
+    <div class="split">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Senior Project Manager – Electrical</div>
+              <div class="tl-company">Deepak Mining &amp; Solutions Ltd.</div>
+            </div>
+            <span class="tl-date">Sep 2022 – Present</span>
+          </div>
+          <p class="tl-desc">Leading industrial, marine, and pipeline CAPEX programs valued at $25M+ across Odisha mining operations. Deploying AI workflows into live production environments.</p>
+          <ul class="tl-achievements">
+            <li>Lead 40+ engineers, supervisors, and technicians across substations, MCC rooms, switchyards, and UPS systems providing end to end Project management services</li>
+            <li>Improved equipment reliability 25%, achieving 98%+ availability — protecting ~$1.5M annual production value</li>
+            <li>Reduced unplanned downtime 30%, generating ~$750K annual productivity gains via AI-assisted maintenance</li>
+            <li>Deployed LLM-driven RCA solution, saving 1,000+ engineering hours annually</li>
+            <li>Manage 50+ vendors/contractors across concurrent workstreams</li>
+            <li>Zero LTI record maintained across all active sites</li>
+          </ul>
+          <div class="card-tags" style="margin-top:.6rem">
+            <span class="tag tag-blue">CAPEX $25M+</span>
+            <span class="tag tag-dark">40+ Team</span>
+            <span class="tag tag-green">Zero LTI</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Deputy Manager – Electrical</div>
+              <div class="tl-company">Essel Mining &amp; Industries Ltd. · Aditya Birla Group</div>
+            </div>
+            <span class="tl-date">Mar 2012 – Mar 2022</span>
+          </div>
+          <p class="tl-desc">Managed electrical infrastructure, reliability, maintenance, and CAPEX across 22+ MW industrial environment. Full accountability for project delivery, vendor relationships, and operational performance.</p>
+          <ul class="tl-achievements">
+            <li>Managed power distribution, substations, transformers, PLC, and SCADA across 22+ MW installed capacity</li>
+            <li>Delivered $15M+ plant modernization and CAPEX projects — 92% on-time, on-budget</li>
+            <li>Increased equipment availability to 98%+ through reliability-centred maintenance redesign</li>
+            <li>Reduced recurring equipment failures 40% through predictive and preventive maintenance improvements</li>
+            <li>Reduced maintenance costs 18%, generating ~$400K annual savings</li>
+            <li>Prepared technical specifications and execution plans for 18+ major capital initiatives</li>
+            <li>Managed 40+ vendor relationships supporting electrical projects and maintenance operations</li>
+          </ul>
+          <div class="card-tags" style="margin-top:.6rem">
+            <span class="tag tag-amber">$15M+ CAPEX</span>
+            <span class="tag tag-dark">22+ MW</span>
+            <span class="tag tag-blue">18+ Initiatives</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Senior Erection &amp; Commissioning Engineer</div>
+              <div class="tl-company">ABB Ltd. · Bangalore</div>
+            </div>
+            <span class="tl-date">Jan 2008 – Feb 2012</span>
+          </div>
+          <p class="tl-desc">Delivered electrical erection and commissioning for major industrial projects. Multi-vendor coordination, quality controls, punch-list closure, and startup readiness across power, process, and manufacturing sectors.</p>
+          <ul class="tl-achievements">
+            <li>Commissioning support for $20M+ industrial projects across power, process, and manufacturing sectors</li>
+            <li>Achieved 95%+ first-time acceptance across five major projects</li>
+            <li>Reduced startup delays 20% through structured commissioning coordination</li>
+            <li>Managed multi-vendor commissioning activities, quality documentation, and punch-list closure</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div>
+              <div class="tl-role">Engineer – Electrical</div>
+              <div class="tl-company">Larsen &amp; Toubro Ltd. – ECC Division</div>
+            </div>
+            <span class="tl-date">2006 – 2008</span>
+          </div>
+          <ul class="tl-achievements">
+            <li>Supported MV substation planning, execution, operations, and maintenance</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label" style="margin-bottom:.75rem">Education &amp; Certifications</div>
+        <div style="display:grid;gap:.75rem;margin-bottom:2rem">
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:.25rem">Certification</div>
+            <div style="font-weight:700;font-size:.95rem">PMP® — Project Management Professional</div>
+            <div style="font-size:.8rem;color:var(--text2)">Project Management Institute (PMI)</div>
+          </div>
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:.25rem">Master's Degree</div>
+            <div style="font-weight:700;font-size:.95rem">MBA – Project Management</div>
+            <div style="font-size:.8rem;color:var(--text2)">Ulyanovsk State University, Russia</div>
+          </div>
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:.25rem">Engineering</div>
+            <div style="font-weight:700;font-size:.95rem">AMIE – Electrical Engineering</div>
+            <div style="font-size:.8rem;color:var(--text2)">Equivalent to B.E. — Institution of Engineers</div>
+          </div>
+          <div class="card" style="padding:1rem 1.1rem">
+            <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:.25rem">Diploma</div>
+            <div style="font-weight:700;font-size:.95rem">Diploma in Electrical Engineering</div>
+            <div style="font-size:.8rem;color:var(--text2)">Government Polytechnic, Jharsuguda</div>
+          </div>
+        </div>
+
+        <div class="section-label" style="margin-bottom:.75rem">Featured Recognition</div>
+        <div class="card" style="padding:1rem 1.1rem">
+          <ul style="list-style:none;display:grid;gap:.5rem">
+            <li style="font-size:.85rem;color:var(--text2);padding-left:1rem;position:relative">
+              <span style="position:absolute;left:0;color:var(--amber)">★</span> Ace Award
+            </li>
+            <li style="font-size:.85rem;color:var(--text2);padding-left:1rem;position:relative">
+              <span style="position:absolute;left:0;color:var(--amber)">★</span> Employee of the Year — 2014
+            </li>
+            <li style="font-size:.85rem;color:var(--text2);padding-left:1rem;position:relative">
+              <span style="position:absolute;left:0;color:var(--amber)">★</span> Zero LTI across all active sites
+            </li>
+            <li style="font-size:.85rem;color:var(--text2);padding-left:1rem;position:relative">
+              <span style="position:absolute;left:0;color:var(--amber)">★</span> 92% on-time/on-budget delivery record
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SKILLS ====== -->
+<section id="skills" style="background:var(--bg2)">
+  <div class="container">
+    <div class="section-label">Capabilities</div>
+    <h2 class="section-title">Skills &amp; Tools</h2>
+    <p class="section-sub">23 years of field-proven expertise, now augmented with production AI capabilities that separate you from every other PM candidate in the pool.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon blue">📊</div>
+          <h3>Project &amp; Program Management</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag primary">PMP® Methodology</span>
+          <span class="skill-tag">End-to-End Project Delivery</span>
+          <span class="skill-tag">CAPEX Management</span>
+          <span class="skill-tag">Cost &amp; Schedule Control</span>
+          <span class="skill-tag">Stage-Gate Planning</span>
+          <span class="skill-tag">Risk Management</span>
+          <span class="skill-tag">Change Management</span>
+          <span class="skill-tag">Resource Management</span>
+          <span class="skill-tag">Project Governance</span>
+          <span class="skill-tag">Vendor Management</span>
+          <span class="skill-tag">Contractor Management</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon amber">⚡</div>
+          <h3>Electrical Engineering</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag amber">Power Distribution</span>
+          <span class="skill-tag amber">11kV Substations</span>
+          <span class="skill-tag amber">HT/LT Panels</span>
+          <span class="skill-tag amber">Transformers</span>
+          <span class="skill-tag amber">MCC &amp; UPS Systems</span>
+          <span class="skill-tag amber">PLC &amp; SCADA</span>
+          <span class="skill-tag">DCS</span>
+          <span class="skill-tag">Industrial Instrumentation</span>
+          <span class="skill-tag">Electrical Maintenance</span>
+          <span class="skill-tag">Commissioning</span>
+          <span class="skill-tag">Electrical Safety</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">🤖</div>
+          <h3>AI &amp; Automation</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag green">Agentic AI</span>
+          <span class="skill-tag green">LLM Tool Development</span>
+          <span class="skill-tag green">Prompt Engineering</span>
+          <span class="skill-tag green">AI Workflow Design</span>
+          <span class="skill-tag green">Claude API</span>
+          <span class="skill-tag green">AI-Assisted RCA</span>
+          <span class="skill-tag green">Engineering Problem Solving</span>
+          <span class="skill-tag green">AI Automation</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon blue">🔧</div>
+          <h3>Digital &amp; Analytics Tools</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">MS Project</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Advanced Excel</span>
+          <span class="skill-tag">Excel VBA</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">SAP</span>
+          <span class="skill-tag">AutoCAD</span>
+          <span class="skill-tag">CMMS Workflows</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon amber">🏭</div>
+          <h3>Reliability &amp; Maintenance</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Predictive Maintenance</span>
+          <span class="skill-tag">Preventive Maintenance</span>
+          <span class="skill-tag">RCM (Reliability-Centred Maintenance)</span>
+          <span class="skill-tag">Root Cause Analysis</span>
+          <span class="skill-tag">Equipment Availability</span>
+          <span class="skill-tag">HSE Compliance</span>
+          <span class="skill-tag">Statutory Audits</span>
+          <span class="skill-tag">Continuous Improvement</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">🌐</div>
+          <h3>Remote &amp; Digital Collaboration</h3>
+        </div>
+        <div class="skill-tags">
+          <span class="skill-tag">Async-First Governance</span>
+          <span class="skill-tag">Digital Vendor Scorecards</span>
+          <span class="skill-tag">Power BI Dashboards</span>
+          <span class="skill-tag">Video-Gated QA/QC</span>
+          <span class="skill-tag">Loom / Recorded Walkthroughs</span>
+          <span class="skill-tag">Slack / Teams</span>
+          <span class="skill-tag">GitHub (AI Code)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CTA ====== -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <div class="tag tag-blue" style="margin:0 auto 1.25rem;justify-content:center">Ready to Hire</div>
+      <h2>Let's Build Something <span class="gradient-text">Exceptional</span></h2>
+      <p>I'm targeting Senior PM, Program Manager, Electrical PM, AI-PM, or Reliability PM roles — remote-first, globally. If you need someone who delivers results and brings production AI to the table, let's talk.</p>
+      <div class="cta-actions">
+        <a href="mailto:amaresh.das3@gmail.com" class="btn btn-primary">📧 Email Me</a>
+        <a href="https://linkedin.com/in/amaresh-das" class="btn btn-outline">🔗 LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Amaresh Das</div>
+        <p class="footer-sub">PMP®-certified Senior Project Manager &amp; Electrical Engineer with 23+ years shipping industrial CAPEX and building production AI. Remote-ready, globally.</p>
+        <div style="display:flex;gap:.5rem;margin-top:1rem">
+          <a href="#" class="btn btn-outline" style="padding:.4rem .9rem;font-size:.8rem">📄 Resume PDF</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#about">About</a>
+        <a href="#ai-projects">AI Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:amaresh.das3@gmail.com">amaresh.das3@gmail.com</a>
+        <a href="https://linkedin.com/in/amaresh-das">LinkedIn Profile</a>
+        <a href="#">GitHub / Portfolio</a>
+        <a href="#">Location: Odisha, India</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Amaresh Das. All rights reserved.</span>
+      <span>Built for remote opportunity · Open to global roles</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+}, { passive: true });
+
+// Theme toggle
+const toggle = document.getElementById('themeToggle');
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  toggle.textContent = theme === 'dark' ? '☀️' : '◐';
+}
+toggle.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+});
+const saved = localStorage.getItem('theme');
+if (saved) applyTheme(saved);
+else if (window.matchMedia('(prefers-color-scheme:light)').matches) applyTheme('light');
+
+// Counter animation
+function animateCounters() {
+  document.querySelectorAll('.hero-stat .num').forEach(el => {
+    const text = el.textContent;
+    if (text.includes('%') || text.includes('M+') || text.includes('$') || text.includes('K')) {
+      el.style.opacity = '1';
+      return;
+    }
+    const num = parseInt(text);
+    if (isNaN(num)) return;
+    const suffix = text.replace(/[0-9]/g, '');
+    let current = 0;
+    const step = Math.ceil(num / 40);
+    const interval = setInterval(() => {
+      current = Math.min(current + step, num);
+      el.textContent = current + suffix;
+      if (current >= num) clearInterval(interval);
+    }, 30);
+  });
+}
+
+// Scroll fade-in
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.card, .ai-card, .timeline-item, .card-grid').forEach(el => {
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+
+// Init
+setTimeout(animateCounters, 300);
+
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
