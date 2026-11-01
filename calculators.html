@@ -1,52 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Industrial Engineering Calculators · IEC & IEEE Validated · ProEngineering.in</title>
-  <meta name="description" content="Precision client-side engineering calculation engines for industrial cable sizing (IEC 60364-5-52), substation earthing grid safety (IEEE Std 80-2013), transformer inrush (IEEE C37.91), and short-circuit fault duty (IEC 60909).">
+  <meta name="description"
+    content="Precision client-side engineering calculation engines for industrial cable sizing (IEC 60364-5-52), substation earthing grid safety (IEEE Std 80-2013), transformer inrush (IEEE C37.91), and short-circuit fault duty (IEC 60909).">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --navy: #102744;
-      --navy-deep: #0a192f;
+      --navy: #0c1f38;
+      --deep-navy: #061324;
+      --navy-deep: #061324;
       --navy-light: #1e3a5f;
-      --accent-blue: #0284c7;
+      --accent-blue: #1d4ed8;
+      --accent-blue-hover: #1e40af;
       --sky: #38bdf8;
-      --text: #1e293b;
-      --text-muted: #64748b;
+      --text: #0f172a;
+      --text-muted: #334155;
+      --quiet: #334155;
       --bg: #ffffff;
       --bg-alt: #f8fafc;
       --surface: #ffffff;
-      --border: #e2e8f0;
-      --border-dark: #cbd5e1;
-      --green: #10b981;
-      --green-bg: #ecfdf5;
-      --green-border: #a7f3d0;
-      --danger-red: #ef4444;
+      --surface-alt: #f1f5f9;
+      --border: #cbd5e1;
+      --border-dark: #94a3b8;
+      --line: #cbd5e1;
+      --silver: #f1f5f9;
+      --green: #15803d;
+      --green-bg: #f0fdf4;
+      --green-border: #bbf7d0;
+      --danger-red: #b91c1c;
       --danger-bg: #fef2f2;
       --danger-border: #fecaca;
-      --amber: #f59e0b;
+      --amber: #b45309;
       --amber-bg: #fffbeb;
-      --amber-border: #fde68a;
-      --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --amber-border: #fef3c7;
+      --radius: 4px;
+      --font-body: 'Source Sans 3', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, ui-monospace, monospace;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    [data-theme="dark"] {
+      --navy: #f8fafc;
+      --deep-navy: #ffffff;
+      --navy-deep: #0a1626;
+      --navy-light: #1e3a5f;
+      --accent-blue: #60a5fa;
+      --accent-blue-hover: #93c5fd;
+      --sky: #38bdf8;
+      --text: #f1f5f9;
+      --text-muted: #cbd5e1;
+      --quiet: #cbd5e1;
+      --bg: #08111e;
+      --bg-alt: #0a1626;
+      --surface: #0c1a2c;
+      --surface-alt: #102138;
+      --border: #263852;
+      --border-dark: #384d6b;
+      --line: #263852;
+      --silver: #112238;
+      --green: #4ade80;
+      --green-bg: #0e241c;
+      --green-border: #1a4d3a;
+      --danger-red: #f87171;
+      --danger-bg: #450a0a;
+      --danger-border: #7f1d1d;
+      --amber: #fbbf24;
+      --amber-bg: #291e0a;
+      --amber-border: #45320d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: var(--font-body);
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
-      font-size: 15px;
+      font-size: 16px; line-height: 1.62;
       -webkit-font-smoothing: antialiased;
     }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
     /* Top Banner */
     .top-banner {
@@ -54,8 +102,9 @@
       color: #94a3b8;
       font-size: 13px;
       padding: 8px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
+
     .top-banner-inner {
       display: flex;
       justify-content: space-between;
@@ -63,8 +112,16 @@
       flex-wrap: wrap;
       gap: 12px;
     }
-    .top-banner a { color: var(--sky); text-decoration: none; font-weight: 600; }
-    .top-banner a:hover { text-decoration: underline; }
+
+    .top-banner a {
+      color: var(--sky);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .top-banner a:hover {
+      text-decoration: underline;
+    }
 
     /* Header */
     header {
@@ -75,11 +132,13 @@
       top: 0;
       z-index: 100;
     }
+
     .header-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     .logo {
       font-weight: 800;
       font-size: 18px;
@@ -89,6 +148,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .logo-badge {
       background: var(--navy-deep);
       color: var(--sky);
@@ -97,9 +157,25 @@
       padding: 3px 6px;
       border-radius: 4px;
     }
-    .nav-links { display: flex; gap: 20px; align-items: center; }
-    .nav-links a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); font-weight: 600; }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 15px; font-weight: 600;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-blue);
+      font-weight: 600;
+    }
 
     /* Hero */
     .hero {
@@ -107,9 +183,10 @@
       border-bottom: 1px solid var(--border);
       background: var(--bg-alt);
     }
+
     .eyebrow {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px; font-weight: 700; letter-spacing: 1.4px; color: var(--accent-blue);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -117,8 +194,20 @@
       margin-bottom: 8px;
       display: inline-block;
     }
-    .hero h1 { font-size: 32px; color: var(--navy); margin-bottom: 10px; font-weight: 800; }
-    .hero p { color: var(--text-muted); max-width: 840px; font-size: 15.5px; line-height: 1.6; }
+
+    .hero h1 {
+      font-size: 32px;
+      color: var(--navy);
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      max-width: 840px;
+      font-size: 15.5px;
+      line-height: 1.6;
+    }
 
     /* Tool Tabs */
     .tabs-bar {
@@ -128,6 +217,7 @@
       margin: 28px 0 24px 0;
       overflow-x: auto;
     }
+
     .tab-btn {
       padding: 12px 18px;
       background: transparent;
@@ -135,13 +225,17 @@
       border-bottom: 3px solid transparent;
       color: var(--text-muted);
       font-family: var(--font-body);
-      font-size: 14.5px;
+      font-size: 15px; font-weight: 600; padding: 12px 20px;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s;
     }
-    .tab-btn:hover { color: var(--navy); }
+
+    .tab-btn:hover {
+      color: var(--navy);
+    }
+
     .tab-btn.active {
       color: var(--accent-blue);
       border-bottom-color: var(--accent-blue);
@@ -149,12 +243,25 @@
     }
 
     /* Calculator Grid */
-    .calc-pane { display: none; }
-    .calc-pane.active { display: block; animation: fadeIn 0.2s ease-in; }
+    .calc-pane {
+      display: none;
+    }
+
+    .calc-pane.active {
+      display: block;
+      animation: fadeIn 0.2s ease-in;
+    }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .calc-layout {
@@ -163,21 +270,28 @@
       gap: 28px;
       margin-bottom: 30px;
     }
-    @media (max-width: 880px) { .calc-layout { grid-template-columns: 1fr; } }
+
+    @media (max-width: 880px) {
+      .calc-layout {
+        grid-template-columns: 1fr;
+      }
+    }
 
     .calc-card {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }
+
     .calc-card h2 {
       font-size: 18px;
       color: var(--navy);
       margin-bottom: 6px;
       font-weight: 700;
     }
+
     .calc-card p.desc {
       color: var(--text-muted);
       font-size: 13px;
@@ -188,20 +302,24 @@
     .form-group {
       margin-bottom: 16px;
     }
+
     .form-group label {
       display: block;
-      font-size: 13px;
+      font-size: 14px; font-weight: 700; color: var(--navy);
       font-weight: 600;
       color: var(--text);
       margin-bottom: 5px;
     }
+
     .form-group .unit {
       font-size: 11px;
       color: var(--text-muted);
       font-family: var(--font-mono);
       font-weight: normal;
     }
-    input[type="number"], select {
+
+    input[type="number"],
+    select {
       width: 100%;
       padding: 9px 12px;
       border: 1px solid var(--border-dark);
@@ -212,7 +330,9 @@
       color: var(--text);
       transition: border-color 0.2s;
     }
-    input[type="number"]:focus, select:focus {
+
+    input[type="number"]:focus,
+    select:focus {
       outline: none;
       border-color: var(--accent-blue);
       box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
@@ -228,12 +348,14 @@
       flex-direction: column;
       justify-content: space-between;
     }
+
     .results-box h2 {
       font-size: 18px;
       color: var(--navy);
       margin-bottom: 4px;
       font-weight: 700;
     }
+
     .result-metric {
       display: flex;
       justify-content: space-between;
@@ -242,8 +364,16 @@
       border-bottom: 1px solid var(--border);
       font-size: 13.5px;
     }
-    .result-metric:last-of-type { border-bottom: none; }
-    .result-label { color: var(--text-muted); font-weight: 500; }
+
+    .result-metric:last-of-type {
+      border-bottom: none;
+    }
+
+    .result-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
     .result-val {
       font-family: var(--font-mono);
       font-weight: 700;
@@ -251,6 +381,7 @@
       font-size: 14.5px;
       text-align: right;
     }
+
     .result-badge {
       display: inline-block;
       padding: 6px 12px;
@@ -261,16 +392,19 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
+
     .result-badge.pass {
       background: var(--green-bg);
       color: var(--green);
       border: 1px solid var(--green-border);
     }
+
     .result-badge.fail {
       background: var(--danger-bg);
       color: var(--danger-red);
       border: 1px solid var(--danger-border);
     }
+
     .result-badge.warn {
       background: var(--amber-bg);
       color: #d97706;
@@ -288,6 +422,7 @@
       color: #334155;
       line-height: 1.6;
     }
+
     .assumptions-box h4 {
       font-size: 11px;
       font-family: var(--font-mono);
@@ -296,11 +431,15 @@
       margin-bottom: 6px;
       letter-spacing: 0.8px;
     }
+
     .assumptions-box ul {
       padding-left: 18px;
       margin: 4px 0;
     }
-    .assumptions-box li { margin-bottom: 3px; }
+
+    .assumptions-box li {
+      margin-bottom: 3px;
+    }
 
     /* High Ticket Funnel CTA */
     .high-ticket-cta {
@@ -315,8 +454,20 @@
       flex-wrap: wrap;
       gap: 20px;
     }
-    .high-ticket-cta h3 { font-size: 20px; margin-bottom: 6px; font-weight: 700; }
-    .high-ticket-cta p { color: #94a3b8; font-size: 14px; max-width: 680px; line-height: 1.5; }
+
+    .high-ticket-cta h3 {
+      font-size: 20px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .high-ticket-cta p {
+      color: #94a3b8;
+      font-size: 14px;
+      max-width: 680px;
+      line-height: 1.5;
+    }
+
     .btn-action {
       background: var(--sky);
       color: var(--navy-deep);
@@ -328,7 +479,10 @@
       white-space: nowrap;
       transition: background 0.2s;
     }
-    .btn-action:hover { background: #7dd3fc; }
+
+    .btn-action:hover {
+      background: #7dd3fc;
+    }
 
     footer {
       border-top: 1px solid var(--border);
@@ -341,6 +495,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Top Executive Banner -->
@@ -380,7 +535,9 @@
       <span class="eyebrow">PRECISION ENGINEERING TOOLS · RIGOROUS SAFETY GATES</span>
       <h1>Interactive Industrial Engineering Calculators</h1>
       <p>
-        Live client-side mathematical engines for cable ampacity derating, substation earthing safety, transformer inrush dynamics, and symmetrical short-circuit duty. Built with transparent formula disclosure, explicit IEEE/IEC standard clauses, and strict safety limits.
+        Live client-side mathematical engines for cable ampacity derating, substation earthing safety, transformer
+        inrush dynamics, and symmetrical short-circuit duty. Built with transparent formula disclosure, explicit
+        IEEE/IEC standard clauses, and strict safety limits.
       </p>
     </div>
   </section>
@@ -400,7 +557,9 @@
       <div class="calc-layout">
         <div class="calc-card">
           <h2>Cable Sizing &amp; Ampacity Derating Parameters</h2>
-          <p class="desc">Computes continuous load current, thermal derating ($k_{\text{temp}} \times k_{\text{group}} \times k_{\text{install}}$), recommended conductor sizing, and terminal voltage drop under IEC 60364-5-52 &amp; IEEE 141.</p>
+          <p class="desc">Computes continuous load current, thermal derating ($k_{\text{temp}} \times k_{\text{group}}
+            \times k_{\text{install}}$), recommended conductor sizing, and terminal voltage drop under IEC 60364-5-52
+            &amp; IEEE 141.</p>
 
           <div class="form-group">
             <label>System Operating Voltage <span class="unit">Volts (L-L)</span></label>
@@ -480,7 +639,8 @@
         <div class="results-box">
           <div>
             <h2>Calculation Results &amp; Compliance Audit</h2>
-            <p class="desc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Standards: IEC 60364-5-52 Table B.52.14, IEC 60502-2 &amp; IEEE 141</p>
+            <p class="desc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Standards: IEC 60364-5-52
+              Table B.52.14, IEC 60502-2 &amp; IEEE 141</p>
 
             <div class="result-metric">
               <span class="result-label">Full Load Design Current (FLA):</span>
@@ -516,9 +676,12 @@
             <h4>Engineering Assumptions &amp; Scope Limitations</h4>
             <ul>
               <li>Continuous load based on 3-phase balanced sinusoidal operation.</li>
-              <li>Thermal derating strictly enforces IEC 60364-5-52 Table B.52.14 temperature &amp; Table B.52.17 grouping factors.</li>
-              <li>When total required current exceeds 780A (Copper) or 600A (Aluminium), parallel conductors are automatically deployed to prevent undersizing hazards.</li>
-              <li>Short-circuit withstand adiabatic sizing ($S = \sqrt{I^2 t} / k$) must be verified separately against breaker clearing time.</li>
+              <li>Thermal derating strictly enforces IEC 60364-5-52 Table B.52.14 temperature &amp; Table B.52.17
+                grouping factors.</li>
+              <li>When total required current exceeds 780A (Copper) or 600A (Aluminium), parallel conductors are
+                automatically deployed to prevent undersizing hazards.</li>
+              <li>Short-circuit withstand adiabatic sizing ($S = \sqrt{I^2 t} / k$) must be verified separately against
+                breaker clearing time.</li>
             </ul>
           </div>
         </div>
@@ -530,7 +693,8 @@
       <div class="calc-layout">
         <div class="calc-card">
           <h2>Substation Earthing Grid Parameters (IEEE Std 80-2013)</h2>
-          <p class="desc">Calculates grid resistance, mesh touch voltage ($E_m$), and step voltage ($E_s$), enforcing strict safety validation against 50kg human tolerable limits.</p>
+          <p class="desc">Calculates grid resistance, mesh touch voltage ($E_m$), and step voltage ($E_s$), enforcing
+            strict safety validation against 50kg human tolerable limits.</p>
 
           <div class="form-group">
             <label>Apparent Soil Resistivity <span class="unit">&Omega;&middot;m</span></label>
@@ -547,14 +711,16 @@
           <div class="form-group">
             <label>Fault Current Division Factor (Sf) <span class="unit">Fraction (0.1 to 1.0)</span></label>
             <input type="number" id="earth_sf" value="0.40" min="0.1" max="1.0" step="0.05" oninput="runEarthCalc()">
-            <span style="font-size:11px;color:var(--text-muted);">Accounts for current diversion to overhead shield wires / OPGW.</span>
+            <span style="font-size:11px;color:var(--text-muted);">Accounts for current diversion to overhead shield
+              wires / OPGW.</span>
           </div>
           <div class="form-group">
             <label>Fault Clearing Duration (ts) <span class="unit">Seconds</span></label>
             <input type="number" id="earth_ts" value="0.5" min="0.05" max="3.0" step="0.05" oninput="runEarthCalc()">
           </div>
           <div class="form-group">
-            <label>Surface Crushed Rock Resistivity (&rho;s) <span class="unit">&Omega;&middot;m (100mm layer)</span></label>
+            <label>Surface Crushed Rock Resistivity (&rho;s) <span class="unit">&Omega;&middot;m (100mm
+                layer)</span></label>
             <input type="number" id="earth_rhos" value="3000" min="500" max="10000" oninput="runEarthCalc()">
           </div>
         </div>
@@ -562,7 +728,8 @@
         <div class="results-box">
           <div>
             <h2>IEEE 80 Safety Limits &amp; Touch/Step Verification</h2>
-            <p class="desc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Governing Standard: IEEE Std 80-2013 Guide for Safety in AC Substation Grounding</p>
+            <p class="desc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Governing Standard: IEEE
+              Std 80-2013 Guide for Safety in AC Substation Grounding</p>
 
             <div class="result-metric">
               <span class="result-label">Calculated Grid Resistance (Rg):</span>
@@ -597,10 +764,14 @@
           <div class="assumptions-box">
             <h4>Engineering Assumptions &amp; Critical Safety Notice</h4>
             <ul>
-              <li><strong>Critical Safety Rule:</strong> Status is based on $R_g \le 1.0\ \Omega$ AND $E_m \le E_{\text{touch}}$ AND $E_s \le E_{\text{step}}$. An earthing grid is declared HAZARDOUS if touch voltage exceeds limits even if resistance is below 1&Omega;.</li>
-              <li>Calculates mesh spacing using Sverak &amp; Koch formula assuming uniform soil model and buried conductor depth $h=0.5\text{ m}$.</li>
+              <li><strong>Critical Safety Rule:</strong> Status is based on $R_g \le 1.0\ \Omega$ AND $E_m \le
+                E_{\text{touch}}$ AND $E_s \le E_{\text{step}}$. An earthing grid is declared HAZARDOUS if touch voltage
+                exceeds limits even if resistance is below 1&Omega;.</li>
+              <li>Calculates mesh spacing using Sverak &amp; Koch formula assuming uniform soil model and buried
+                conductor depth $h=0.5\text{ m}$.</li>
               <li>Tolerable shock voltages calibrated for 50kg body weight per IEEE 80 Clause 8.3.</li>
-              <li>Two-layer soil stratification and Wenner 4-pin field inversions must be verified with specialized software (e.g. CDEGS) for final construction execution.</li>
+              <li>Two-layer soil stratification and Wenner 4-pin field inversions must be verified with specialized
+                software (e.g. CDEGS) for final construction execution.</li>
             </ul>
           </div>
         </div>
@@ -612,7 +783,8 @@
       <div class="calc-layout">
         <div class="calc-card">
           <h2>Transformer Inrush &amp; Harmonic Restraint</h2>
-          <p class="desc">Models magnetizing inrush multiples, air-core inductance limiting, and calculates inrush decay time constants derived from winding impedance (%Z) per IEEE C37.91.</p>
+          <p class="desc">Models magnetizing inrush multiples, air-core inductance limiting, and calculates inrush decay
+            time constants derived from winding impedance (%Z) per IEEE C37.91.</p>
 
           <div class="form-group">
             <label>Transformer Nominal Capacity <span class="unit">MVA</span></label>
@@ -629,7 +801,8 @@
           <div class="form-group">
             <label>Core Residual Magnetism Level</label>
             <select id="tr_rem" onchange="runInrushCalc()">
-              <option value="high" selected>High Residual Flux (Severe - Breaker Out-of-Phase Trip / Remanence 80%)</option>
+              <option value="high" selected>High Residual Flux (Severe - Breaker Out-of-Phase Trip / Remanence 80%)
+              </option>
               <option value="med">Moderate Residual Flux (Normal Operation / Remanence 40%)</option>
               <option value="low">Demagnetized / Zero Residual Flux (Remanence 0%)</option>
             </select>
@@ -639,7 +812,8 @@
         <div class="results-box">
           <div>
             <h2>Protection Settings Recommendation</h2>
-            <p class="desc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Governing Standards: IEEE C37.91 &amp; IEC 60255-151</p>
+            <p class="desc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Governing Standards: IEEE
+              C37.91 &amp; IEC 60255-151</p>
 
             <div class="result-metric">
               <span class="result-label">Full Load Primary Current (FLA):</span>
@@ -670,9 +844,12 @@
           <div class="assumptions-box">
             <h4>Engineering Assumptions &amp; Scope Limitations</h4>
             <ul>
-              <li>Peak inrush is mathematically coupled to transformer leakage impedance: $I_{\text{peak}} = \frac{100}{\%Z} \times k_{\text{geom}} \times k_{\text{rem}} \times \text{FLA}$.</li>
-              <li>Decay time constant $\tau$ is derived from the winding $X/R$ ratio ($	au = \frac{X/R}{2\pi f}$) and core saturation resistance.</li>
-              <li>Second-harmonic cross-blocking (ANSI 87T) must be enabled on all phases to prevent single-phase false-trips during energization.</li>
+              <li>Peak inrush is mathematically coupled to transformer leakage impedance: $I_{\text{peak}} =
+                \frac{100}{\%Z} \times k_{\text{geom}} \times k_{\text{rem}} \times \text{FLA}$.</li>
+              <li>Decay time constant $\tau$ is derived from the winding $X/R$ ratio ($ au = \frac{X/R}{2\pi f}$) and
+                core saturation resistance.</li>
+              <li>Second-harmonic cross-blocking (ANSI 87T) must be enabled on all phases to prevent single-phase
+                false-trips during energization.</li>
             </ul>
           </div>
         </div>
@@ -684,7 +861,8 @@
       <div class="calc-layout">
         <div class="calc-card">
           <h2>Symmetrical Short-Circuit Duty (IEC 60909)</h2>
-          <p class="desc">Calculates symmetrical initial fault current ($I_k''$), peak making current ($i_p$) with dynamic $\kappa$ derived from system $X/R$ ratio, and evaluates switchgear breaking withstand.</p>
+          <p class="desc">Calculates symmetrical initial fault current ($I_k''$), peak making current ($i_p$) with
+            dynamic $\kappa$ derived from system $X/R$ ratio, and evaluates switchgear breaking withstand.</p>
 
           <div class="form-group">
             <label>Bus Voltage Level <span class="unit">kV</span></label>
@@ -704,7 +882,8 @@
           <div class="form-group">
             <label>System X/R Ratio at Fault Point</label>
             <input type="number" id="sc_xr" value="15" min="1" max="60" step="1" oninput="runFaultCalc()">
-            <span style="font-size:11px;color:var(--text-muted);">Standard: Substation bus X/R = 10-20; Power Plant Generator bus X/R = 25-50.</span>
+            <span style="font-size:11px;color:var(--text-muted);">Standard: Substation bus X/R = 10-20; Power Plant
+              Generator bus X/R = 25-50.</span>
           </div>
           <div class="form-group">
             <label>Switchgear Rated Breaking Capacity <span class="unit">kA for 3s</span></label>
@@ -720,7 +899,8 @@
         <div class="results-box">
           <div>
             <h2>Equipment Withstand Duty Evaluation</h2>
-            <p class="desc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Governing Standards: IEC 60909-0 Clause 4.3 &amp; IEC 62271-200</p>
+            <p class="desc" style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Governing Standards: IEC
+              60909-0 Clause 4.3 &amp; IEC 62271-200</p>
 
             <div class="result-metric">
               <span class="result-label">Symmetrical Fault Current (Ik''):</span>
@@ -751,9 +931,11 @@
           <div class="assumptions-box">
             <h4>Engineering Assumptions &amp; Scope Limitations</h4>
             <ul>
-              <li>Calculates symmetrical short-circuit current ($I_k''$) assuming nominal voltage factor $c = 1.10$ for high-voltage networks per IEC 60909.</li>
+              <li>Calculates symmetrical short-circuit current ($I_k''$) assuming nominal voltage factor $c = 1.10$ for
+                high-voltage networks per IEC 60909.</li>
               <li>Peak factor $\kappa$ is mathematically derived: $\kappa = 1.02 + 0.98 e^{-3 / (X/R)}$.</li>
-              <li>DC decaying component and circuit breaker breaking current at minimum contact parting time ($I_b$) should be validated in ETAP/CYME for high X/R installations.</li>
+              <li>DC decaying component and circuit breaker breaking current at minimum contact parting time ($I_b$)
+                should be validated in ETAP/CYME for high X/R installations.</li>
             </ul>
           </div>
         </div>
@@ -763,10 +945,14 @@
     <!-- HIGH-TICKET FUNNEL CTA -->
     <div class="high-ticket-cta">
       <div>
-        <span style="background:rgba(16,185,129,0.2);color:#a7f3d0;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:1px;font-family:var(--font-mono);">NEED AN INDEPENDENT SYSTEM STUDY?</span>
+        <span
+          style="background:rgba(16,185,129,0.2);color:#a7f3d0;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:1px;font-family:var(--font-mono);">NEED
+          AN INDEPENDENT SYSTEM STUDY?</span>
         <h3 style="margin-top:6px;">Have a Complex High-Voltage Substation or Expansion Package?</h3>
         <p>
-          Calculators provide preliminary guidance. For high-stakes capital packages ($20M to $200M+), engage Amaresh Das, PMP® as an independent Owner's Engineer for stamped ETAP model validation, protective relay coordination audits, and pre-bid specification reviews.
+          Calculators provide preliminary guidance. For high-stakes capital packages ($20M to $200M+), engage Amaresh
+          Das, PMP® as an independent Owner's Engineer for stamped ETAP model validation, protective relay coordination
+          audits, and pre-bid specification reviews.
         </p>
       </div>
       <div>
@@ -782,7 +968,9 @@
     <div class="container">
       &copy; 2026 ProEngineering &amp; Amaresh Das, PMP®. Built for professional engineering accuracy.<br>
       Standards Grounding: IEC 60364-5-52, IEC 60909, IEC 62271-200, IEEE Std 80-2013, IEEE C37.91, IEEE 141.<br>
-      <strong>Engineering Disclaimer:</strong> These interactive calculation models are provided for preliminary design guidance and feasibility evaluation. Final certified electrical designs must be validated and stamped by a licensed Professional Engineer (PE) or Chartered Electrical Engineer of record.
+      <strong>Engineering Disclaimer:</strong> These interactive calculation models are provided for preliminary design
+      guidance and feasibility evaluation. Final certified electrical designs must be validated and stamped by a
+      licensed Professional Engineer (PE) or Chartered Electrical Engineer of record.
     </div>
   </footer>
 
@@ -930,7 +1118,7 @@
 
       // 3. Ground Potential Rise (GPR)
       const gpr_kv = (ig_amps * rg) / 1000;
-      document.getElementById('res_earth_gpr').innerText = gpr_kv.toFixed(1) + ' kV (Ig=' + (ig_amps/1000).toFixed(1) + 'kA)';
+      document.getElementById('res_earth_gpr').innerText = gpr_kv.toFixed(1) + ' kV (Ig=' + (ig_amps / 1000).toFixed(1) + 'kA)';
 
       // 4. Surface derating factor Cs
       const hs = 0.1; // 100mm surface crushed rock
@@ -1071,4 +1259,5 @@
   </script>
 
 </body>
+
 </html>

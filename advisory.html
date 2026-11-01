@@ -13,23 +13,23 @@
 
   <style>
     :root {
-      --navy: #102744;
-      --deep-navy: #0c2038;
-      --navy-deep: #0c2038;
+      --navy: #0c1f38;
+      --deep-navy: #061324;
+      --navy-deep: #061324;
       --navy-alt: #163359;
-      --silver: #f2f5f8;
-      --ink: #152a42;
-      --quiet: #697789;
-      --line: #dce3ea;
-      --line-light: #edf2f7;
-      --steel: #a9bbce;
-      --accent-blue: #38618d;
-      --accent-blue-hover: #29496a;
+      --silver: #f1f5f9;
+      --ink: #0f172a;
+      --quiet: #334155;
+      --line: #cbd5e1;
+      --line-light: #e2e8f0;
+      --steel: #64748b;
+      --accent-blue: #1d4ed8;
+      --accent-blue-hover: #1e40af;
       --sky: #38bdf8;
       --sky-light: #eef4f9;
-      --outcome-green: #2f7d5b;
-      --outcome-bg: #eef4f9;
-      --outcome-border: #d4e3ef;
+      --outcome-green: #15803d;
+      --outcome-bg: #f0fdf4;
+      --outcome-border: #bbf7d0;
       --amber: #b45309;
       --amber-bg: #fffbeb;
       --amber-border: #fef3c7;
@@ -37,10 +37,10 @@
       --danger-bg: #fef2f2;
       --danger-border: #fecaca;
       --bg: #ffffff;
-      --bg-alt: #fbfcfd;
+      --bg-alt: #f8fafc;
       --surface: #ffffff;
-      --surface-alt: #f8fafc;
-      --border: #dce3ea;
+      --surface-alt: #f1f5f9;
+      --border: #cbd5e1;
       --radius: 4px;
       --radius-lg: 5px;
       --shadow-sm: 0 1px 3px rgba(16,39,68,0.05);
@@ -53,21 +53,21 @@
     }
 
     [data-theme="dark"] {
-      --navy: #e6eef7;
-      --deep-navy: #f0f5fa;
+      --navy: #f8fafc;
+      --deep-navy: #ffffff;
       --navy-deep: #0a1626;
       --navy-alt: #1c3558;
       --silver: #112238;
-      --ink: #e8edf5;
-      --quiet: #8fa3bf;
-      --line: #1c314e;
-      --line-light: #162438;
-      --steel: #486581;
-      --accent-blue: #70a0d4;
-      --accent-blue-hover: #9bbfe6;
+      --ink: #f1f5f9;
+      --quiet: #cbd5e1;
+      --line: #263852;
+      --line-light: #1e293b;
+      --steel: #94a3b8;
+      --accent-blue: #60a5fa;
+      --accent-blue-hover: #93c5fd;
       --sky: #38bdf8;
       --sky-light: #10253f;
-      --outcome-green: #48c78e;
+      --outcome-green: #4ade80;
       --outcome-bg: #0e241c;
       --outcome-border: #1a4d3a;
       --amber: #fbbf24;
@@ -80,19 +80,19 @@
       --bg-alt: #0a1626;
       --surface: #0c1a2c;
       --surface-alt: #102138;
-      --border: #1c314e;
+      --border: #263852;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
       --shadow-md: 0 4px 14px rgba(0,0,0,0.4);
       --shadow-lg: 0 10px 25px rgba(0,0,0,0.5);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16px; }
+    html { scroll-behavior: smooth; font-size: 16.5px; }
     body {
       font-family: var(--font-body);
       background: var(--bg);
       color: var(--ink);
-      line-height: 1.6;
+      line-height: 1.62; font-size: 16px;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       transition: background .2s, color .2s;
@@ -200,7 +200,7 @@
       display: flex;
       align-items: center;
       gap: 22px;
-      font-size: 13.5px;
+      font-size: 15px; font-weight: 600;
       font-weight: 500;
     }
     .main-nav a {
@@ -1141,6 +1141,10 @@
       <div class="cases-grid">
         <!-- Case 1 -->
         <div class="case-card">
+          <div class="case-img-wrap" style="height:170px;border-radius:var(--radius);overflow:hidden;margin-bottom:18px;position:relative;border:1px solid var(--line);">
+            <img src="/assets/images/substation-132kv.jpg" alt="132/33kV Substation Commissioning" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <div style="position:absolute;bottom:8px;left:10px;background:rgba(12,31,56,0.85);backdrop-filter:blur(4px);color:#fff;padding:3px 8px;border-radius:3px;font-size:11px;font-family:var(--font-mono);font-weight:600;">132/33kV Substation Interconnect</div>
+          </div>
           <div>
             <div class="case-badge-wrap">
               <span class="case-scope-tag">$45M Substation Package</span>
@@ -1172,6 +1176,10 @@
 
         <!-- Case 2 -->
         <div class="case-card">
+          <div class="case-img-wrap" style="height:170px;border-radius:var(--radius);overflow:hidden;margin-bottom:18px;position:relative;border:1px solid var(--line);">
+            <img src="/assets/images/power-plant-turbines.jpg" alt="Continuous Process Facility MV Motors" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <div style="position:absolute;bottom:8px;left:10px;background:rgba(12,31,56,0.85);backdrop-filter:blur(4px);color:#fff;padding:3px 8px;border-radius:3px;font-size:11px;font-family:var(--font-mono);font-weight:600;">6.6kV MV Motor Reliability (NEMA MG 1)</div>
+          </div>
           <div>
             <div class="case-badge-wrap">
               <span class="case-scope-tag">Continuous Process Facility</span>
@@ -1203,6 +1211,10 @@
 
         <!-- Case 3 -->
         <div class="case-card">
+          <div class="case-img-wrap" style="height:170px;border-radius:var(--radius);overflow:hidden;margin-bottom:18px;position:relative;border:1px solid var(--line);">
+            <img src="/assets/images/datacenter-infrastructure.jpg" alt="Heavy Industrial Infrastructure Program" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <div style="position:absolute;bottom:8px;left:10px;background:rgba(12,31,56,0.85);backdrop-filter:blur(4px);color:#fff;padding:3px 8px;border-radius:3px;font-size:11px;font-family:var(--font-mono);font-weight:600;">$65M Captive Power Scope · P6 Forensic Audit</div>
+          </div>
           <div>
             <div class="case-badge-wrap">
               <span class="case-scope-tag">$65M Captive Power Scope</span>
@@ -1234,6 +1246,10 @@
 
         <!-- Case 4 -->
         <div class="case-card">
+          <div class="case-img-wrap" style="height:170px;border-radius:var(--radius);overflow:hidden;margin-bottom:18px;position:relative;border:1px solid var(--line);">
+            <img src="/assets/images/engineering-schematics.jpg" alt="AI Engineering Spec vs Drawings Pilot" style="width:100%;height:100%;object-fit:cover;display:block;">
+            <div style="position:absolute;bottom:8px;left:10px;background:rgba(12,31,56,0.85);backdrop-filter:blur(4px);color:#fff;padding:3px 8px;border-radius:3px;font-size:11px;font-family:var(--font-mono);font-weight:600;">AI Spec vs Drawings Check · Scenario Pilot</div>
+          </div>
           <div>
             <div class="case-badge-wrap">
               <span class="case-scope-tag">Operational Pilot / Demonstrator</span>

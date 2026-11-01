@@ -13,9 +13,10 @@
 
   <style>
     :root {
-      --navy: #102744;
-      --navy-deep: #081627;
-      --accent-blue: #0284c7;
+      --navy: #0c1f38;
+      --navy-deep: #061324;
+      --accent-blue: #1d4ed8;
+      --accent-blue-hover: #1e40af;
       --sky: #38bdf8;
       --outcome-green: #15803d;
       --outcome-bg: #f0fdf4;
@@ -23,23 +24,49 @@
       --danger-bg: #fef2f2;
       --warning-amber: #b45309;
       --warning-bg: #fffbeb;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #334155;
+      --quiet: #334155;
+      --border: #cbd5e1;
+      --line: #cbd5e1;
       --bg: #ffffff;
       --bg-alt: #f8fafc;
-      --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', Consolas, monospace;
+      --silver: #f1f5f9;
+      --radius: 4px;
+      --font-body: 'Source Sans 3', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, ui-monospace, monospace;
+    }
+
+    [data-theme="dark"] {
+      --navy: #f8fafc;
+      --navy-deep: #0a1626;
+      --accent-blue: #60a5fa;
+      --accent-blue-hover: #93c5fd;
+      --sky: #38bdf8;
+      --outcome-green: #4ade80;
+      --outcome-bg: #0e241c;
+      --danger-red: #f87171;
+      --danger-bg: #450a0a;
+      --warning-amber: #fbbf24;
+      --warning-bg: #291e0a;
+      --text: #f1f5f9;
+      --text-muted: #cbd5e1;
+      --quiet: #cbd5e1;
+      --border: #263852;
+      --line: #263852;
+      --bg: #08111e;
+      --bg-alt: #0a1626;
+      --silver: #112238;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-body);
-      background: var(--bg-alt);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.55;
-      font-size: 15px;
+      font-size: 16px; line-height: 1.62;
     }
 
     .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
@@ -68,7 +95,7 @@
 
     .eyebrow {
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 12px; font-weight: 700; letter-spacing: 1.4px; color: var(--accent-blue);
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -77,8 +104,8 @@
       display: inline-block;
     }
 
-    h1 { font-size: 26px; color: var(--navy); margin-bottom: 8px; font-weight: 800; }
-    p.lead { color: var(--text-muted); font-size: 14.5px; margin-bottom: 24px; }
+    h1 { font-size: 30px; font-weight: 800; color: var(--navy); color: var(--navy); margin-bottom: 8px; font-weight: 800; }
+    p.lead { color: var(--text-muted); font-size: 16px; line-height: 1.6; color: var(--text-muted); margin-bottom: 24px; }
 
     .step-section { display: none; }
     .step-section.active { display: block; animation: fadeIn 0.3s ease-in; }
@@ -172,7 +199,7 @@
     .btn {
       padding: 10px 22px;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 14.5px; font-weight: 600; padding: 10px 20px;
       font-weight: 600;
       cursor: pointer;
       border: none;
@@ -306,6 +333,10 @@
 
   <div class="container">
     <div class="wizard-card">
+      <div style="height:150px;border-radius:8px;overflow:hidden;margin-bottom:24px;position:relative;border:1px solid var(--border);">
+        <img src="/assets/images/datacenter-infrastructure.jpg" alt="Capital Project Infrastructure Risk Governance" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;bottom:12px;left:14px;background:rgba(12,31,56,0.85);backdrop-filter:blur(4px);color:#fff;padding:4px 12px;border-radius:4px;font-size:12px;font-family:var(--font-mono);font-weight:600;">PMP® Capital Governance · Commissioning Hold-Point Triage</div>
+      </div>
       <div class="progress-bar">
         <div class="progress-step active" id="prog-1"></div>
         <div class="progress-step" id="prog-2"></div>
