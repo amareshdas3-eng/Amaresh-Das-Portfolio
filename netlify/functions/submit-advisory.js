@@ -135,44 +135,53 @@ exports.handler = async (event, context) => {
       source: 'proengineering_advisory_portal'
     };
 
-    // 7. Secure server-side webhook dispatch (No secrets in browser JS)
-    const webhookEndpoint = process.env.ADVISORY_WEBHOOK_URL || 'https://hook.eu2.make.com/6c9p461427evy876l9e9w90e66r8m61x';
+    // 7. Secure server-side webhook dispatch (Strictly via environment variable, zero fallback secrets)
+    const webhookEndpoint = process.env.ADVISORY_WEBHOOK_URL;
 
-    await new Promise((resolve) => {
-      const parsedUrl = new URL(webhookEndpoint);
-      const postData = JSON.stringify(sanitizedPayload);
+    if (webhookEndpoint) {
+      await new Promise((resolve) => {
+        try {
+          const parsedUrl = new URL(webhookEndpoint);
+          const postData = JSON.stringify(sanitizedPayload);
 
-      const reqOptions = {
-        hostname: parsedUrl.hostname,
-        port: parsedUrl.port || (parsedUrl.protocol === 'https:' ? 443 : 80),
-        path: parsedUrl.pathname + parsedUrl.search,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(postData),
-          'User-Agent': 'ProEngineering-Advisory-Gateway/1.0'
-        },
-        timeout: 5000
-      };
+          const reqOptions = {
+            hostname: parsedUrl.hostname,
+            port: parsedUrl.port || (parsedUrl.protocol === 'https:' ? 443 : 80),
+            path: parsedUrl.pathname + parsedUrl.search,
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Content-Length': Buffer.byteLength(postData),
+              'User-Agent': 'ProEngineering-Advisory-Gateway/1.0'
+            },
+            timeout: 5000
+          };
 
-      const req = https.request(reqOptions, (res) => {
-        res.on('data', () => {});
-        res.on('end', () => resolve(true));
+          const req = https.request(reqOptions, (res) => {
+            res.on('data', () => {});
+            res.on('end', () => resolve(true));
+          });
+
+          req.on('error', (err) => {
+            console.error('Webhook dispatch error:', err.message);
+            resolve(false);
+          });
+
+          req.on('timeout', () => {
+            req.destroy();
+            resolve(false);
+          });
+
+          req.write(postData);
+          req.end();
+        } catch (e) {
+          console.error('Webhook URL error:', e.message);
+          resolve(false);
+        }
       });
-
-      req.on('error', (err) => {
-        console.error('Webhook dispatch error:', err.message);
-        resolve(false); // Resolve gracefully
-      });
-
-      req.on('timeout', () => {
-        req.destroy();
-        resolve(false);
-      });
-
-      req.write(postData);
-      req.end();
-    });
+    } else {
+      console.log('[ADVISORY_GATEWAY] Inquiry logged in queue (ADVISORY_WEBHOOK_URL not configured):', sanitizedPayload.workEmail);
+    }
 
     // 8. Truthful response acknowledging queue entry
     return {
