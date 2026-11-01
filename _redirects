@@ -10,4 +10,6 @@
 /tools /calculators.html 200
 /diagnostic /diagnostic_audit.html 200
 /audit /diagnostic_audit.html 200
+/spec-review /spec_reviewer.html 200
+/ai-reviewer /spec_reviewer.html 200
 /* /index.html 200

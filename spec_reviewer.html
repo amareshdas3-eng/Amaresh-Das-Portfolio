@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spec vs. Drawings Check · Engineering Document Intelligence · ProEngineering.in</title>
+  <meta name="description" content="AI-assisted engineering document intelligence engine. Automatically compares approved technical specifications against vendor drawings and schedules to isolate deviations, gold plating, and commercial risks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #102744;
+      --navy-deep: #0a192f;
+      --navy-light: #1e3a5f;
+      --accent-blue: #0284c7;
+      --sky: #38bdf8;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --border-dark: #cbd5e1;
+      --green: #10b981;
+      --green-bg: #ecfdf5;
+      --green-border: #a7f3d0;
+      --amber: #f59e0b;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+      --red: #ef4444;
+      --red-bg: #fef2f2;
+      --red-border: #fecaca;
+      --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Utility Bar */
+    .top-bar {
+      background: var(--navy-deep);
+      color: #94a3b8;
+      font-size: 13px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+    .top-bar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .top-bar a { color: var(--sky); text-decoration: none; font-weight: 600; }
+    .top-bar a:hover { text-decoration: underline; }
+
+    /* Header */
+    header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--navy);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-badge {
+      background: var(--navy-deep);
+      color: var(--sky);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); font-weight: 600; }
+
+    /* Hero / App Intro */
+    .app-hero {
+      background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 0 24px 0;
+    }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--accent-blue);
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .app-hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    .app-hero p {
+      color: var(--text-muted);
+      max-width: 880px;
+      font-size: 15.5px;
+      line-height: 1.6;
+    }
+
+    /* Executive Metric Ribbon */
+    .metrics-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 24px 0 32px 0;
+    }
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .metric-title { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-family: var(--font-mono); font-weight: 600; }
+    .metric-val { font-size: 24px; font-weight: 800; color: var(--navy); margin-top: 4px; font-family: var(--font-mono); }
+    .metric-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* Work Area */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 960px) {
+      .workspace-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Left Control Sidebar */
+    .control-panel {
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      height: fit-content;
+    }
+    .control-panel h3 {
+      font-size: 15px;
+      color: var(--navy);
+      margin-bottom: 14px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border-dark);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      background: #ffffff;
+      color: var(--text);
+    }
+    select:focus, input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .btn-primary {
+      background: var(--navy);
+      color: #ffffff;
+    }
+    .btn-primary:hover { background: var(--navy-light); }
+    .btn-secondary {
+      background: #ffffff;
+      color: var(--navy);
+      border: 1px solid var(--border-dark);
+      margin-top: 8px;
+    }
+    .btn-secondary:hover { background: var(--bg-alt); }
+    .btn-export {
+      background: var(--green);
+      color: #ffffff;
+      margin-top: 12px;
+    }
+    .btn-export:hover { background: #059669; }
+
+    /* Results Feed */
+    .results-panel {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+    .filter-tabs { display: flex; gap: 8px; }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .filter-btn.active {
+      background: var(--navy);
+      color: #ffffff;
+      border-color: var(--navy);
+    }
+
+    /* Discrepancy Card */
+    .finding-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .finding-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-color: var(--border-dark);
+    }
+    .finding-card.severity-critical { border-left: 4px solid var(--red); }
+    .finding-card.severity-major { border-left: 4px solid var(--amber); }
+    .finding-card.severity-minor { border-left: 4px solid var(--accent-blue); }
+
+    .finding-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .finding-tag-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .tag-critical { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .tag-major { background: var(--amber-bg); color: #d97706; border: 1px solid var(--amber-border); }
+    .tag-minor { background: #eff6ff; color: var(--accent-blue); border: 1px solid #bfdbfe; }
+    .finding-id { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+
+    .finding-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    /* Comparison Box */
+    .comparison-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 12px;
+      font-size: 13.5px;
+    }
+    @media (max-width: 650px) { .comparison-box { grid-template-columns: 1fr; } }
+    .comp-col h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .comp-col p { font-weight: 600; color: var(--navy); }
+    .comp-col .ref { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
+
+    .action-box {
+      background: #f8fafc;
+      border-left: 3px solid var(--navy);
+      padding: 10px 14px;
+      border-radius: 0 4px 4px 0;
+      font-size: 13px;
+      color: #334155;
+      margin-bottom: 14px;
+    }
+    .action-box strong { color: var(--navy); }
+
+    .finding-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .impact-badges { display: flex; gap: 12px; font-family: var(--font-mono); font-weight: 600; }
+    .impact-cost { color: var(--red); }
+    .impact-time { color: #d97706; }
+
+    .gate-actions { display: flex; gap: 8px; }
+    .btn-gate {
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+    }
+    .btn-gate:hover { background: var(--bg-alt); }
+    .btn-gate.approved { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+
+    /* CTA Banner */
+    .cta-card {
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%);
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 32px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .cta-content h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    .cta-content p { color: #94a3b8; font-size: 14.5px; max-width: 650px; }
+    .cta-btn {
+      background: var(--sky);
+      color: var(--navy-deep);
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+    .cta-btn:hover { background: #7dd3fc; }
+
+    /* Print Styles */
+    @media print {
+      .top-bar, header, .control-panel, .filter-bar, .gate-actions, .cta-card, .btn-export { display: none !important; }
+      .workspace-grid { display: block; }
+      .results-panel { border: none; box-shadow: none; padding: 0; }
+      .finding-card { break-inside: avoid; border: 1px solid #000; margin-bottom: 20px; }
+      body { font-size: 12pt; background: #fff; color: #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div>
+        <strong>Engineering Intelligence:</strong> Live Spec vs Drawings AI Verification System
+      </div>
+      <div>
+        <a href="/calculators.html" style="color:#38bdf8;margin-right:16px;">⚡ Engineering Calculators</a>
+        <a href="/diagnostic.html" style="color:#fbbf24;margin-right:16px;">🔍 Capital Risk Diagnostic</a>
+        <a href="/portfolio.html" style="color:#ffffff;">Portfolio Home</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="container header-inner">
+      <a href="/portfolio.html" class="logo">
+        <span class="logo-badge">PRO</span>
+        <span>ProEngineering <span style="font-weight:400;color:var(--text-muted)">Document Intelligence</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="/portfolio.html">Master Portfolio</a>
+        <a href="/calculators.html">Calculators</a>
+        <a href="/spec-review" class="active">Spec vs Drawings AI</a>
+        <a href="/diagnostic.html">Audit Wizard</a>
+        <a href="/playbook.pdf">Free Playbook</a>
+        <a href="/portfolio.html#engagement-models">Consulting Retainers</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="app-hero">
+    <div class="container">
+      <span class="eyebrow">ENGINEERING DELIVERY INTELLIGENCE · ISO 9001 &amp; FIDIC COMPLIANT</span>
+      <h1>Spec vs. Drawings Check (AI Discrepancy Engine)</h1>
+      <p>
+        Eliminates contractor change-order blowouts and fatal site hold points before Factory Acceptance Testing (FAT). Cross-examines approved technical specifications against tender drawings, single-line diagrams, and vendor schedules to isolate specification gold-plating, unapproved substitutions, and missing scopes.
+      </p>
+
+      <!-- Metrics Ribbon -->
+      <div class="metrics-ribbon">
+        <div class="metric-card">
+          <span class="metric-title">Discrepancies Isolated</span>
+          <span class="metric-val" id="kpi-total">6 Active</span>
+          <span class="metric-sub">Across 4 Engineering Disciplines</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Potential Cost Exposure</span>
+          <span class="metric-val" style="color:var(--red);" id="kpi-cost">$208,000 USD</span>
+          <span class="metric-sub">₹1.72 Cr Cumulative Variation Risk</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Critical Path Schedule Risk</span>
+          <span class="metric-val" style="color:#d97706;" id="kpi-days">42 Days</span>
+          <span class="metric-sub">Total Commissioning Delay Potential</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-title">Human Sign-off Status</span>
+          <span class="metric-val" style="color:var(--green);" id="kpi-gate">3 on Hold</span>
+          <span class="metric-sub">Requires Lead Engineer Approval</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Work Area -->
+  <div class="container" style="margin-top: 24px;">
+    <div class="workspace-grid">
+
+      <!-- Left Sidebar: Controls -->
+      <aside class="control-panel">
+        <h3>Document Package Calibration</h3>
+
+        <div class="form-group">
+          <label>Select Sample Project Package</label>
+          <select id="packageSelect" onchange="loadPackage(this.value)">
+            <option value="substation" selected>33kV/11kV Primary Substation Package</option>
+            <option value="cpp">40MW Captive Power Plant Interconnect</option>
+            <option value="datacenter">Tier-IV Data Center Dual-Incomer Package</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Governing Contract Form</label>
+          <select id="contractForm">
+            <option value="fidic_silver" selected>FIDIC Silver Book (EPC / Turnkey)</option>
+            <option value="fidic_yellow">FIDIC Yellow Book (Plant Design-Build)</option>
+            <option value="bespoke">Bespoke Industrial EPC Contract</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Audit Scope Level</label>
+          <select id="auditDepth">
+            <option value="pre_bid" selected>Pre-Bid Takeoff &amp; RFI Isolation</option>
+            <option value="post_award">Post-Award Vendor Submittal Approval</option>
+            <option value="fat_clearance">Pre-FAT Hold Point Verification</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary" onclick="runAIDiscrepancyCheck()">
+          <span>🔍 Run AI Cross-Check</span>
+        </button>
+
+        <button class="btn btn-secondary" onclick="resetToBaseline()">
+          <span>↺ Reset to Verified Baseline</span>
+        </button>
+
+        <button class="btn btn-export" onclick="window.print()">
+          <span>📄 Export Formal RFI Report (PDF)</span>
+        </button>
+
+        <div style="margin-top: 20px; font-size: 11.5px; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 14px;">
+          <strong>Human-in-the-Loop Safeguard:</strong> All AI-detected discrepancies require explicit verification by a chartered/PMP® engineer before transmittal to owners or contractors.
+        </div>
+      </aside>
+
+      <!-- Right Main: Results Feed -->
+      <main class="results-panel">
+        <div class="filter-bar">
+          <div class="filter-tabs">
+            <button class="filter-btn active" onclick="filterFindings('all')">All Findings (<span id="count-all">6</span>)</button>
+            <button class="filter-btn" onclick="filterFindings('critical')">Critical (<span id="count-critical">2</span>)</button>
+            <button class="filter-btn" onclick="filterFindings('major')">Major (<span id="count-major">3</span>)</button>
+            <button class="filter-btn" onclick="filterFindings('minor')">Minor (<span id="count-minor">1</span>)</button>
+          </div>
+
+          <div>
+            <input type="text" id="searchBox" placeholder="Search findings (e.g. cable, GIS)..." oninput="searchFindings(this.value)" style="width: 220px; font-size: 13px; padding: 6px 10px;">
+          </div>
+        </div>
+
+        <!-- Dynamic Findings Container -->
+        <div id="findingsContainer">
+          <!-- Populated by JavaScript -->
+        </div>
+
+      </main>
+
+    </div>
+
+    <!-- Consulting Funnel Upsell Card -->
+    <div class="cta-card">
+      <div class="cta-content">
+        <h2>Need an Independent Specification Review for your Capital Package?</h2>
+        <p>
+          Prevent multi-crore EPC claims and fatal energization delays. Engage Amaresh Das, PMP® (23+ years heavy industrial experience) for a <strong>Critical Project Health Check</strong> or ongoing Owner's Engineer advisory.
+        </p>
+      </div>
+      <a href="mailto:amaresh.das3@gmail.com?subject=Inquiry:%20EPC%20Specification%20Audit%20and%20Discrepancy%20Review" class="cta-btn">
+        Schedule 15-Min Executive Triage →
+      </a>
+    </div>
+
+  </div>
+
+  <footer style="margin-top: 60px; padding: 24px 0; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); text-align: center;">
+    <div class="container">
+      © 2026 ProEngineering.in · Engineering Intelligence for the Modern Industrial World · PMP®-certified Lead Electrical Delivery.
+    </div>
+  </footer>
+
+  <script>
+    // Master Discrepancy Datasets
+    const packages = {
+      substation: [
+        {
+          id: "DSC-001",
+          severity: "critical",
+          discipline: "Electrical Medium-Voltage",
+          element: "33kV Underground Power Feeder Cable (SYS-CBL-33KV)",
+          specRef: "Technical Spec Vol-II Sec 04.2.1 (P.42)",
+          specVal: "3C x 400 sq.mm Annealed Copper (Cu), XLPE Insulated, Corrugated Aluminium Sheathed",
+          drawingRef: "DWG-EL-SLD-001 Rev B (Grid B4)",
+          drawingVal: "3C x 400 sq.mm Aluminium (Al), XLPE Insulated, Steel Wire Armored (SWA)",
+          costImpact: "$48,500 USD (₹40.2 Lakhs)",
+          costUSD: 48500,
+          timeImpact: "14 Days lead-time variance",
+          timeDays: 14,
+          varianceType: "SPECIFICATION GOLD PLATING",
+          action: "Issue Pre-Bid Clarification RFI-001: Technical spec calls for Copper conductor while SLD shows Aluminium. Request employer confirmation before cable tender lock.",
+          status: "HOLD_FOR_LEAD_ENGINEER"
+        },
+        {
+          id: "DSC-002",
+          severity: "critical",
+          discipline: "High-Voltage Switchgear",
+          element: "33kV Indoor GIS Switchgear Busbar & Circuit Breaker Duty",
+          specRef: "Technical Spec Vol-II Sec 05.1.4 (P.68)",
+          specVal: "Short-time withstand rating: 31.5 kA for 3.0 seconds (IEC 62271-200)",
+          drawingRef: "DWG-EL-SLD-001 Rev B (Grid D2)",
+          drawingVal: "Rated short-circuit breaking capacity: 25 kA for 1.0 second",
+          costImpact: "$62,000 USD (₹51.4 Lakhs)",
+          costUSD: 62000,
+          timeImpact: "28 Days manufacturing cycle",
+          timeDays: 28,
+          varianceType: "FATAL FAULT DUTY CONFLICT",
+          action: "Issue Critical Hold RFI-002: System fault level analysis per IEC 60909 indicates 28.2 kA at 33kV bus. The 25kA breaker specified on the SLD is undersized and will fail short-circuit duty under through-fault conditions.",
+          status: "HOLD_FOR_LEAD_ENGINEER"
+        },
+        {
+          id: "DSC-003",
+          severity: "major",
+          discipline: "Power Transformers",
+          element: "15/20 MVA 33/11kV Power Transformer Neutral Earthing Scheme",
+          specRef: "Technical Spec Vol-II Sec 06.3.2 (P.91)",
+          specVal: "Dyn11 Vector Group with 11kV Neutral Grounding Resistor (NGR 400A, 10-second duty)",
+          drawingRef: "DWG-EL-SLD-002 Rev A (Grid C6)",
+          drawingVal: "Dyn11 Solidly Grounded Neutral (No NGR or neutral CT depicted)",
+          costImpact: "$19,500 USD (₹16.1 Lakhs)",
+          costUSD: 19500,
+          timeImpact: "10 Days engineering delay",
+          timeDays: 10,
+          varianceType: "PROTECTION DESIGN CONFLICT",
+          action: "Issue RFI-003: Confirm whether 11kV distribution system is intended for low-resistance earthing (requiring NGR cubicles) or solid earthing to avoid relay false-tripping.",
+          status: "APPROVED"
+        },
+        {
+          id: "DSC-004",
+          severity: "major",
+          discipline: "Substation Automation & SCADA",
+          element: "Numerical Protection Relay Communication Backbone",
+          specRef: "Technical Spec Vol-II Sec 07.4.1 (P.112)",
+          specVal: "IEC 61850 Edition 2 Dual-Port PRP/HSR Optical Fiber Ring",
+          drawingRef: "DWG-EL-PROT-004 Rev B (Note 7)",
+          drawingVal: "RS-485 Modbus RTU 2-Wire Daisy-Chain Twisted Pair",
+          costImpact: "$14,200 USD (₹11.8 Lakhs)",
+          costUSD: 14200,
+          timeImpact: "7 Days design turnaround",
+          timeDays: 7,
+          varianceType: "PROTOCOL OBSOLESCENCE CONFLICT",
+          action: "Issue RFI-004: Tender drawings illustrate obsolete RS-485 serial communication, failing the mandatory IEC 61850 PRP ring specified in Volume II. Align switchgear relay cubicle BOM.",
+          status: "APPROVED"
+        },
+        {
+          id: "DSC-005",
+          severity: "major",
+          discipline: "Civil & Infrastructure Containment",
+          element: "Outdoor Cable Tray & Support Structure Material",
+          specRef: "Technical Spec Vol-II Sec 08.1.9 (P.130)",
+          specVal: "SS316L Marine-Grade Stainless Steel Heavy-Duty Ladder Tray",
+          drawingRef: "DWG-EL-GA-009 Rev C (Section A-A)",
+          drawingVal: "Hot-Dip Galvanized Iron (HDGI 85 microns) Mild Steel Tray",
+          costImpact: "$34,000 USD (₹28.2 Lakhs)",
+          costUSD: 34000,
+          timeImpact: "12 Days procurement lead-time",
+          timeDays: 12,
+          varianceType: "COMMERCIAL GOLD PLATING",
+          action: "Issue Commercial RFI-005: Facility is located 85km inland outside corrosive marine atmosphere. Request client permission to substitute HDGI tray to save $34,000 in unnecessary CAPEX.",
+          status: "HOLD_FOR_LEAD_ENGINEER"
+        },
+        {
+          id: "DSC-006",
+          severity: "minor",
+          discipline: "Substation Earthing & Bonding",
+          element: "Main Buried Perimeter Earth Grid Conductor",
+          specRef: "Technical Spec Vol-II Sec 09.2.1 (P.145)",
+          specVal: "75 x 10 mm Annealed Tinned Copper Flat",
+          drawingRef: "DWG-EL-LAY-104 (Missing Sheet)",
+          drawingVal: "Drawing Sheet E-104 Omitted from Bid Transmittal Package",
+          costImpact: "$29,800 USD (₹24.7 Lakhs)",
+          costUSD: 29800,
+          timeImpact: "5 Days tendering hold",
+          timeDays: 5,
+          varianceType: "MISSING TENDER DRAWING",
+          action: "Issue Transmittal Notice: Drawing E-104 (Substation Earthing Layout) is missing from the tender package. Request immediate release to finalize copper takeoff quantities.",
+          status: "APPROVED"
+        }
+      ],
+
+      cpp: [
+        {
+          id: "DSC-CPP-01",
+          severity: "critical",
+          discipline: "Power Generation & GCB",
+          element: "40MW Turbo-Generator Circuit Breaker (GCB) Breaking Duty",
+          specRef: "CPP Technical Spec Sec 03.1 (P.25)",
+          specVal: "63 kA Generator Circuit Breaker with dual-directional fault rating (IEEE C37.013)",
+          drawingRef: "DWG-CPP-SLD-01 Rev C",
+          drawingVal: "Standard 40 kA Distribution Circuit Breaker depicted on generator bus",
+          costImpact: "$78,000 USD (₹64.7 Lakhs)",
+          costUSD: 78000,
+          timeImpact: "35 Days lead time",
+          timeDays: 35,
+          varianceType: "FATAL BREAKER EXPLOSION RISK",
+          action: "Immediate Engineering RFI: Generator circuit breakers must clear system-fed and generator-fed faults with delayed current zeros per IEEE C37.013. Standard distribution breaker will explode under out-of-phase condition.",
+          status: "HOLD_FOR_LEAD_ENGINEER"
+        },
+        {
+          id: "DSC-CPP-02",
+          severity: "major",
+          discipline: "Plant Decoupling & Islanding",
+          element: "Dynamic Islanding Under-Frequency Load Shedding (UFLS)",
+          specRef: "System Protection Philosophy Sec 09 (P.88)",
+          specVal: "Fast ROCOF (df/dt) relay operating time < 80ms to decouple CPP during grid disturbances",
+          drawingRef: "DWG-CPP-SCH-04 Rev A",
+          drawingVal: "Standard ANSI 81U frequency relay with 500ms time delay shown on interconnect",
+          costImpact: "$32,000 USD (₹26.5 Lakhs)",
+          costUSD: 32000,
+          timeImpact: "14 Days",
+          timeDays: 14,
+          varianceType: "BLACKOUT STABILITY CONFLICT",
+          action: "Recalibrate islanding scheme: 500ms delay causes total generator trip under severe grid frequency depression. Update to high-speed digital GOOSE ROCOF scheme.",
+          status: "APPROVED"
+        }
+      ],
+
+      datacenter: [
+        {
+          id: "DSC-DC-01",
+          severity: "critical",
+          discipline: "Mission Critical 2N Power",
+          element: "Static Transfer Switch (STS) Sub-Cycle Transfer Speed",
+          specRef: "Data Center Tier-IV Spec Sec 12.2",
+          specVal: "Quarter-cycle fast transfer time < 4.0 ms (ensuring zero server ITIC/CBEMA power drop)",
+          drawingRef: "DWG-DC-SLD-02 Rev B",
+          drawingVal: "Standard mechanical ATS with 20-30 ms transfer speed indicated",
+          costImpact: "$110,000 USD (₹91.3 Lakhs)",
+          costUSD: 110000,
+          timeImpact: "21 Days",
+          timeDays: 21,
+          varianceType: "TIER-IV COMPLIANCE VIOLATION",
+          action: "Reject submittal: Mechanical ATS drops server loads during incomer outage. Mandatory solid-state STS required for Tier-IV certification.",
+          status: "HOLD_FOR_LEAD_ENGINEER"
+        }
+      ]
+    };
+
+    let activeData = [...packages.substation];
+    let currentFilter = 'all';
+
+    function renderFindings(dataToRender) {
+      const container = document.getElementById('findingsContainer');
+      container.innerHTML = '';
+
+      if (dataToRender.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted)">No discrepancies found matching the current criteria.</div>';
+        return;
+      }
+
+      dataToRender.forEach(item => {
+        const card = document.createElement('article');
+        card.className = `finding-card severity-${item.severity}`;
+
+        const isApproved = item.status === 'APPROVED';
+
+        card.innerHTML = `
+          <div class="finding-header">
+            <div class="finding-tag-group">
+              <span class="tag tag-${item.severity}">${item.severity}</span>
+              <span class="tag" style="background:#f1f5f9;color:#475569;">${item.discipline}</span>
+              <span class="finding-id">${item.id}</span>
+            </div>
+            <span class="tag" style="background:${item.status.includes('HOLD') ? '#fef3c7' : '#ecfdf5'};color:${item.status.includes('HOLD') ? '#b45309' : '#047857'}">
+              ${item.status.replace(/_/g, ' ')}
+            </span>
+          </div>
+
+          <div class="finding-title">${item.element}</div>
+
+          <div class="comparison-box">
+            <div class="comp-col">
+              <h4>📄 Approved Specification</h4>
+              <p>${item.specVal}</p>
+              <div class="ref">${item.specRef}</div>
+            </div>
+            <div class="comp-col" style="border-left: 1px dashed var(--border); padding-left: 12px;">
+              <h4>📐 Vendor Drawing / Schedule</h4>
+              <p style="color:var(--red);">${item.drawingVal}</p>
+              <div class="ref">${item.drawingRef}</div>
+            </div>
+          </div>
+
+          <div class="action-box">
+            <strong>Recommended Engineering Action:</strong> ${item.action}
+          </div>
+
+          <div class="finding-footer">
+            <div class="impact-badges">
+              <span class="impact-cost">💰 Exposure: ${item.costImpact}</span>
+              <span class="impact-time">⏱ Delay Risk: ${item.timeImpact}</span>
+            </div>
+            <div class="gate-actions">
+              <button class="btn-gate ${isApproved ? 'approved' : ''}" onclick="toggleSignoff('${item.id}')">
+                ${isApproved ? '✓ Human Verified' : 'Approve for RFI'}
+              </button>
+            </div>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      updateKPIs();
+    }
+
+    function updateKPIs() {
+      let totalCost = 0;
+      let totalDays = 0;
+      let onHold = 0;
+      let critCount = 0;
+      let majCount = 0;
+      let minCount = 0;
+
+      activeData.forEach(item => {
+        totalCost += item.costUSD || 0;
+        totalDays += item.timeDays || 0;
+        if (item.status.includes('HOLD')) onHold++;
+        if (item.severity === 'critical') critCount++;
+        if (item.severity === 'major') majCount++;
+        if (item.severity === 'minor') minCount++;
+      });
+
+      document.getElementById('kpi-total').innerText = activeData.length + ' Active';
+      document.getElementById('kpi-cost').innerText = '$' + totalCost.toLocaleString() + ' USD';
+      document.getElementById('kpi-days').innerText = totalDays + ' Days';
+      document.getElementById('kpi-gate').innerText = onHold + ' on Hold';
+
+      document.getElementById('count-all').innerText = activeData.length;
+      document.getElementById('count-critical').innerText = critCount;
+      document.getElementById('count-major').innerText = majCount;
+      document.getElementById('count-minor').innerText = minCount;
+    }
+
+    function filterFindings(severity) {
+      currentFilter = severity;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      if (severity === 'all') {
+        renderFindings(activeData);
+      } else {
+        renderFindings(activeData.filter(i => i.severity === severity));
+      }
+    }
+
+    function searchFindings(query) {
+      const q = query.toLowerCase();
+      const filtered = activeData.filter(i => 
+        i.element.toLowerCase().includes(q) || 
+        i.specVal.toLowerCase().includes(q) || 
+        i.drawingVal.toLowerCase().includes(q) ||
+        i.id.toLowerCase().includes(q)
+      );
+      renderFindings(filtered);
+    }
+
+    function toggleSignoff(id) {
+      const item = activeData.find(i => i.id === id);
+      if (item) {
+        item.status = (item.status === 'APPROVED') ? 'HOLD_FOR_LEAD_ENGINEER' : 'APPROVED';
+        renderFindings(activeData);
+      }
+    }
+
+    function loadPackage(pkgKey) {
+      activeData = [...(packages[pkgKey] || packages.substation)];
+      renderFindings(activeData);
+    }
+
+    function runAIDiscrepancyCheck() {
+      const btn = event.target.closest('button');
+      btn.innerHTML = '<span>⏳ Cross-Examining Packages...</span>';
+      btn.style.opacity = '0.7';
+
+      setTimeout(() => {
+        btn.innerHTML = '<span>🔍 Run AI Cross-Check</span>';
+        btn.style.opacity = '1';
+        alert('AI Cross-Examination Complete: Analyzed 24 Drawing Sheets against Technical Volume II Specifications. Identified ' + activeData.length + ' discrepancies.');
+        renderFindings(activeData);
+      }, 700);
+    }
+
+    function resetToBaseline() {
+      document.getElementById('packageSelect').value = 'substation';
+      loadPackage('substation');
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderFindings(activeData);
+    });
+  </script>
+
+</body>
+</html>
