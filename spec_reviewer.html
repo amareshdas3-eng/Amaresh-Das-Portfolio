@@ -460,7 +460,7 @@
         <strong>Demonstrator Transparency Notice:</strong> Interactive discrepancy demonstrator using predefined engineering scenarios. It illustrates specification-to-drawing verification logic and is not a live document-ingestion or production AI review service.
       </div>
       <span class="eyebrow" style="display:block;">ENGINEERING DELIVERY INTELLIGENCE · ISO 9001 &amp; FIDIC COMPLIANT</span>
-      <h1>Spec vs. Drawings Check (AI Discrepancy Engine)</h1>
+      <h1>Spec vs. Drawings Check (Scenario Discrepancy Demonstrator)</h1>
       <p>
         Eliminates contractor change-order blowouts and fatal site hold points before Factory Acceptance Testing (FAT). Cross-examines approved technical specifications against tender drawings, single-line diagrams, and vendor schedules to isolate specification gold-plating, unapproved substitutions, and missing scopes.
       </p>
@@ -530,7 +530,7 @@
         </div>
 
         <button class="btn btn-primary" onclick="runAIDiscrepancyCheck()">
-          <span>🔍 Run AI Cross-Check</span>
+          <span>🔍 Run Scenario Discrepancy Demonstration</span>
         </button>
 
         <button class="btn btn-secondary" onclick="resetToBaseline()">
@@ -891,13 +891,13 @@
 
     function runAIDiscrepancyCheck() {
       const btn = event.target.closest('button');
-      btn.innerHTML = '<span>⏳ Cross-Examining Packages...</span>';
+      btn.innerHTML = '<span>⏳ Evaluating Scenario Parameters...</span>';
       btn.style.opacity = '0.7';
 
       setTimeout(() => {
-        btn.innerHTML = '<span>🔍 Run AI Cross-Check</span>';
+        btn.innerHTML = '<span>🔍 Run Scenario Discrepancy Demonstration</span>';
         btn.style.opacity = '1';
-        alert('AI Cross-Examination Complete: Analyzed 24 Drawing Sheets against Technical Volume II Specifications. Identified ' + activeData.length + ' discrepancies.');
+        alert('Scenario Demonstration Complete: Cross-referenced preloaded project package parameters across 4 engineering disciplines. Identified ' + activeData.length + ' scenario discrepancies.');
         renderFindings(activeData);
       }, 700);
     }

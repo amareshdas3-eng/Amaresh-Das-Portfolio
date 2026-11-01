@@ -5,7 +5,7 @@
 const https = require('https');
 const url = require('url');
 
-// Simple in-memory rate limiting / duplicate tracking cache
+// Instance-level in-memory rate limiting (best-effort throttling per container instance; durable rate limiting requires shared Redis/KV store)
 const recentSubmissions = new Map();
 const RATE_LIMIT_WINDOW_MS = 30 * 1000; // 30 seconds
 
@@ -70,7 +70,7 @@ exports.handler = async (event, context) => {
       return {
         statusCode: 400,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ error: 'A valid corporate email address is required' })
+        body: JSON.stringify({ error: 'A valid email address is required' })
       };
     }
 
@@ -135,62 +135,94 @@ exports.handler = async (event, context) => {
       source: 'proengineering_advisory_portal'
     };
 
-    // 7. Secure server-side webhook dispatch (Strictly via environment variable, zero fallback secrets)
+    // 7. Secure server-side webhook dispatch with strict upstream verification
     const webhookEndpoint = process.env.ADVISORY_WEBHOOK_URL;
 
-    if (webhookEndpoint) {
-      await new Promise((resolve) => {
-        try {
-          const parsedUrl = new URL(webhookEndpoint);
-          const postData = JSON.stringify(sanitizedPayload);
-
-          const reqOptions = {
-            hostname: parsedUrl.hostname,
-            port: parsedUrl.port || (parsedUrl.protocol === 'https:' ? 443 : 80),
-            path: parsedUrl.pathname + parsedUrl.search,
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Content-Length': Buffer.byteLength(postData),
-              'User-Agent': 'ProEngineering-Advisory-Gateway/1.0'
-            },
-            timeout: 5000
-          };
-
-          const req = https.request(reqOptions, (res) => {
-            res.on('data', () => {});
-            res.on('end', () => resolve(true));
-          });
-
-          req.on('error', (err) => {
-            console.error('Webhook dispatch error:', err.message);
-            resolve(false);
-          });
-
-          req.on('timeout', () => {
-            req.destroy();
-            resolve(false);
-          });
-
-          req.write(postData);
-          req.end();
-        } catch (e) {
-          console.error('Webhook URL error:', e.message);
-          resolve(false);
-        }
-      });
-    } else {
-      console.log('[ADVISORY_GATEWAY] Inquiry logged in queue (ADVISORY_WEBHOOK_URL not configured):', sanitizedPayload.workEmail);
+    if (!webhookEndpoint) {
+      console.warn('[ADVISORY_GATEWAY] ADVISORY_WEBHOOK_URL is not configured on server.');
+      return {
+        statusCode: 503,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ok: false,
+          error: 'Advisory dispatch gateway is temporarily unconfigured. Please email brief directly to amaresh.das3@gmail.com.'
+        })
+      };
     }
 
-    // 8. Truthful response acknowledging queue entry
+    const dispatchResult = await new Promise((resolve) => {
+      try {
+        const parsedUrl = new URL(webhookEndpoint);
+        const postData = JSON.stringify(sanitizedPayload);
+
+        const isHttps = parsedUrl.protocol === 'https:';
+        const client = isHttps ? https : require('http');
+
+        const reqOptions = {
+          hostname: parsedUrl.hostname,
+          port: parsedUrl.port || (isHttps ? 443 : 80),
+          path: parsedUrl.pathname + parsedUrl.search,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(postData),
+            'User-Agent': 'ProEngineering-Advisory-Gateway/1.0'
+          },
+          timeout: 7000
+        };
+
+        const req = client.request(reqOptions, (res) => {
+          let responseBody = '';
+          res.on('data', chunk => { responseBody += chunk; });
+          res.on('end', () => {
+            const code = res.statusCode || 0;
+            if (code >= 200 && code < 300) {
+              resolve({ success: true, statusCode: code });
+            } else {
+              resolve({ success: false, statusCode: code, error: `Upstream HTTP ${code}: ${responseBody.slice(0, 100)}` });
+            }
+          });
+        });
+
+        req.on('error', (err) => {
+          resolve({ success: false, error: `Socket error: ${err.message}` });
+        });
+
+        req.on('timeout', () => {
+          req.destroy();
+          resolve({ success: false, error: 'Upstream gateway connection timed out' });
+        });
+
+        req.write(postData);
+        req.end();
+      } catch (err) {
+        resolve({ success: false, error: `Invalid dispatch URL: ${err.message}` });
+      }
+    });
+
+    // 8. Handle upstream failure truthfully (Return 502 Bad Gateway)
+    if (!dispatchResult.success) {
+      console.error('[ADVISORY_GATEWAY] Delivery failure:', dispatchResult.error || `HTTP ${dispatchResult.statusCode}`);
+      return {
+        statusCode: 502,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ok: false,
+          error: 'Upstream notification delivery failed. Please use the direct email link below.',
+          details: dispatchResult.error || `HTTP ${dispatchResult.statusCode}`
+        })
+      };
+    }
+
+    // 9. Return success ONLY upon confirmed upstream acceptance
+    console.log('[ADVISORY_GATEWAY] Delivery confirmed by upstream service (HTTP', dispatchResult.statusCode + ')');
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ok: true,
-        status: 'logged',
-        message: 'Your technical inquiry has been submitted and recorded in the review queue. Amaresh Das, PMP® will review your requirements and respond within 1 business day.'
+        status: 'delivered',
+        message: 'Your technical inquiry has been successfully delivered to Amaresh Das, PMP®. You will receive a direct response within 1 business day.'
       })
     };
 
