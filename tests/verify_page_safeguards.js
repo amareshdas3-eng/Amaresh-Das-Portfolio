@@ -1,5 +1,5 @@
 // tests/verify_page_safeguards.js
-// Automated verification suite for content governance, standards attribution, and security safeguards across Amaresh-Das-Portfolio.
+// Automated verification suite for content governance, standards attribution, security safeguards, and delivery guarantees across Amaresh-Das-Portfolio.
 
 const fs = require('fs');
 const path = require('path');
@@ -13,6 +13,7 @@ function runChecks() {
   const repoRoot = path.resolve(__dirname, '..');
   const advisoryHtmlPath = path.join(repoRoot, 'advisory.html');
   const specReviewerPath = path.join(repoRoot, 'spec_reviewer.html');
+  const submitFunctionPath = path.join(repoRoot, 'netlify', 'functions', 'submit-advisory.js');
 
   // 1. Audit advisory.html
   const advText = fs.readFileSync(advisoryHtmlPath, 'utf8');
@@ -48,7 +49,15 @@ function runChecks() {
   assert(advText.includes('zero localStorage tracking'), "Privacy disclosure must confirm zero localStorage tracking");
   console.log("[PASS] Privacy disclosure: Discloses cloud processor role, retention scope, and erasure contact");
 
-  // E. Secret Leaks & Anti-Patterns
+  // E. Truthful Intake & Acceptance Terminology
+  assert(!advText.includes('Inquiry Recorded in Queue'), "advisory.html must not claim inquiry recorded in queue");
+  assert(!advText.includes('Inquiry Logged to Review Queue'), "advisory.html must not claim inquiry logged to review queue");
+  assert(advText.includes('Enquiry Accepted for Forwarding'), "advisory.html must confirm enquiry accepted for forwarding");
+  assert(advText.includes('Enquiry Transmitted ✓'), "advisory.html button must confirm enquiry transmitted");
+  assert(advText.includes('Your enquiry has been accepted by our notification service for forwarding. We will review your requirements and respond within one business day to coordinate a preliminary scoping discussion.') || advText.includes('Your enquiry has been accepted by our notification service for forwarding.'), "advisory.html feedback must state exact truthful forwarding wording");
+  console.log("[PASS] Intake terminology: Zero false queue claims; truthful gateway forwarding feedback verified");
+
+  // F. Secret Leaks & Anti-Patterns
   assert(!advText.includes('hook.eu2.make.com'), "advisory.html must not expose Make webhook URL");
   assert(!advText.includes('advisory_inquiries'), "advisory.html must not use localStorage for inquiry tracking");
   assert(!advText.includes('.ics'), "advisory.html must not use fake calendar booking");
@@ -56,12 +65,23 @@ function runChecks() {
   assert(!advText.includes('stamped deliverables'), "advisory.html must not claim stamped deliverables");
   console.log("[PASS] Security & integrity: Zero exposed webhook URLs, zero localStorage inquiry leaks, zero Tailwind CDN");
 
-  // 2. Audit spec_reviewer.html
+  // 2. Audit netlify/functions/submit-advisory.js
+  const funcText = fs.readFileSync(submitFunctionPath, 'utf8');
+  assert(!funcText.includes("require('http')"), "submit-advisory.js must not import or fallback to unencrypted http");
+  assert(funcText.includes("parsedUrl.protocol !== 'https:'"), "submit-advisory.js must strictly enforce https: protocol");
+  assert(funcText.includes("status: 'accepted_by_notification_gateway'"), "submit-advisory.js must return truthful status: accepted_by_notification_gateway");
+  assert(!funcText.includes("status: 'delivered'"), "submit-advisory.js must not claim delivered status without mailbox confirmation");
+  console.log("[PASS] Serverless intake function: HTTPS-only enforcement and accepted_by_notification_gateway status verified");
+
+  // 3. Audit spec_reviewer.html
   const specText = fs.readFileSync(specReviewerPath, 'utf8');
   assert(specText.includes('Interactive discrepancy demonstrator using predefined engineering scenarios. It illustrates specification-to-drawing verification logic and is not a live document-ingestion or production AI review service.'), "spec_reviewer.html must display demonstrator transparency notice");
   assert(specText.includes('Run Scenario Discrepancy Demonstration'), "spec_reviewer.html button must use scenario-demonstration language");
   assert(specText.includes('Scenario Demonstration Complete: Cross-referenced preloaded project package parameters'), "spec_reviewer.html alert must use scenario-demonstration language");
-  console.log("[PASS] spec_reviewer.html: Demonstrator transparency notice, button, and alert verified");
+  assert(specText.includes('<strong>Technology Roadmap:</strong> Future development may incorporate multimodal document ingestion, OCR-assisted extraction and auditable cross-document verification. These capabilities are not available in this current demonstrator.') || specText.includes('Future development may incorporate multimodal document ingestion, OCR-assisted extraction and auditable cross-document verification. These capabilities are not available in this current demonstrator.'), "spec_reviewer.html must include exact technology roadmap disclosure");
+  assert(!specText.includes('DocAI / Gemini Vision'), "spec_reviewer.html must not claim active DocAI / Gemini Vision production deployment");
+  assert(!specText.includes('vector knowledge graph'), "spec_reviewer.html must not claim active vector knowledge graph production deployment");
+  console.log("[PASS] spec_reviewer.html: Demonstrator transparency notice, button, alert, and technology roadmap verified");
 
   console.log("\n=================================================");
   console.log("ALL REPOSITORY SAFEGUARDS & STANDARDS PASSED.");

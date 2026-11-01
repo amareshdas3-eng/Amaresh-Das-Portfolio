@@ -1,9 +1,9 @@
 // netlify/functions/submit-advisory.js
 // Secure server-side intake handler for ProEngineering Advisory inquiries
-// Eliminates client-side secrets, enforces honeypot spam protection, server-side validation, and rate limiting.
+// Eliminates client-side secrets, enforces HTTPS-only dispatch, honeypot spam protection, server-side validation, and rate limiting.
 
 const https = require('https');
-const url = require('url');
+const { URL } = require('url');
 
 // Instance-level in-memory rate limiting (best-effort throttling per container instance; durable rate limiting requires shared Redis/KV store)
 const recentSubmissions = new Map();
@@ -135,7 +135,7 @@ exports.handler = async (event, context) => {
       source: 'proengineering_advisory_portal'
     };
 
-    // 7. Secure server-side webhook dispatch with strict upstream verification
+    // 7. Secure server-side webhook dispatch with strict HTTPS-only enforcement
     const webhookEndpoint = process.env.ADVISORY_WEBHOOK_URL;
 
     if (!webhookEndpoint) {
@@ -150,17 +150,41 @@ exports.handler = async (event, context) => {
       };
     }
 
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(webhookEndpoint);
+    } catch (urlErr) {
+      console.error('[ADVISORY_GATEWAY] Invalid ADVISORY_WEBHOOK_URL:', urlErr.message);
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ok: false,
+          error: 'Advisory gateway configuration error: invalid dispatch URL.'
+        })
+      };
+    }
+
+    // Strictly enforce HTTPS-only to prevent transmitting PII over unencrypted channels
+    if (parsedUrl.protocol !== 'https:') {
+      console.error('[ADVISORY_GATEWAY] Insecure dispatch URL rejected:', parsedUrl.protocol);
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ok: false,
+          error: 'Insecure dispatch URL rejected: HTTPS is strictly required for data protection.'
+        })
+      };
+    }
+
     const dispatchResult = await new Promise((resolve) => {
       try {
-        const parsedUrl = new URL(webhookEndpoint);
         const postData = JSON.stringify(sanitizedPayload);
-
-        const isHttps = parsedUrl.protocol === 'https:';
-        const client = isHttps ? https : require('http');
 
         const reqOptions = {
           hostname: parsedUrl.hostname,
-          port: parsedUrl.port || (isHttps ? 443 : 80),
+          port: parsedUrl.port || 443,
           path: parsedUrl.pathname + parsedUrl.search,
           method: 'POST',
           headers: {
@@ -168,10 +192,10 @@ exports.handler = async (event, context) => {
             'Content-Length': Buffer.byteLength(postData),
             'User-Agent': 'ProEngineering-Advisory-Gateway/1.0'
           },
-          timeout: 7000
+          timeout: parseInt(process.env.ADVISORY_DISPATCH_TIMEOUT_MS || '7000', 10)
         };
 
-        const req = client.request(reqOptions, (res) => {
+        const req = https.request(reqOptions, (res) => {
           let responseBody = '';
           res.on('data', chunk => { responseBody += chunk; });
           res.on('end', () => {
@@ -196,7 +220,7 @@ exports.handler = async (event, context) => {
         req.write(postData);
         req.end();
       } catch (err) {
-        resolve({ success: false, error: `Invalid dispatch URL: ${err.message}` });
+        resolve({ success: false, error: `Dispatch error: ${err.message}` });
       }
     });
 
@@ -214,15 +238,15 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // 9. Return success ONLY upon confirmed upstream acceptance
-    console.log('[ADVISORY_GATEWAY] Delivery confirmed by upstream service (HTTP', dispatchResult.statusCode + ')');
+    // 9. Return success ONLY upon confirmed upstream gateway acceptance
+    console.log('[ADVISORY_GATEWAY] Accepted by notification gateway (HTTP', dispatchResult.statusCode + ')');
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ok: true,
-        status: 'delivered',
-        message: 'Your technical inquiry has been successfully delivered to Amaresh Das, PMP®. You will receive a direct response within 1 business day.'
+        status: 'accepted_by_notification_gateway',
+        message: 'Your enquiry has been accepted by our notification service for forwarding. We will review your requirements and respond within one business day.'
       })
     };
 

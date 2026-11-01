@@ -1386,8 +1386,8 @@
 
           <!-- Truthful Success Feedback -->
           <div id="formSuccess" class="form-feedback feedback-success">
-            <strong>Inquiry Logged to Review Queue.</strong><br>
-            Thank you, <span id="respName"></span>. Your technical inquiry has been submitted and recorded in the engineering review queue. Amaresh Das, PMP® will evaluate your facility requirements and respond within 1 business day to coordinate a preliminary scoping discussion.
+            <strong>Enquiry Accepted for Forwarding.</strong><br>
+            Thank you, <span id="respName"></span>. Your enquiry has been accepted by our notification service for forwarding. We will review your requirements and respond within one business day to coordinate a preliminary scoping discussion.
           </div>
 
           <!-- Truthful Error Feedback with Guaranteed Fallback Route -->
@@ -1563,7 +1563,7 @@
           respName.textContent = payload.fullName;
           formSuccess.style.display = 'block';
           document.getElementById('advisoryIntakeForm').reset();
-          submitBtn.textContent = 'Inquiry Recorded in Queue ✓';
+          submitBtn.textContent = 'Enquiry Transmitted ✓';
         } else {
           throw new Error((result && result.error) || 'Server returned status ' + response.status);
         }
