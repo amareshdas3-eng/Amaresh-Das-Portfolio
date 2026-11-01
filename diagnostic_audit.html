@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capital Project Diagnostic &amp; Risk Audit — ProEngineering &amp; Amaresh Das, PMP®</title>
+  <meta name="description" content="Instant diagnostic risk audit for 33kV/11kV substations, heavy industrial capital programs, and EPC contractor package handoffs.">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #102744;
+      --navy-deep: #081627;
+      --accent-blue: #0284c7;
+      --sky: #38bdf8;
+      --outcome-green: #15803d;
+      --outcome-bg: #f0fdf4;
+      --danger-red: #b91c1c;
+      --danger-bg: #fef2f2;
+      --warning-amber: #b45309;
+      --warning-bg: #fffbeb;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #ffffff;
+      --bg-alt: #f8fafc;
+      --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-alt);
+      color: var(--text);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+
+    .wizard-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .progress-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .progress-step {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      transition: background 0.3s;
+    }
+    .progress-step.active { background: var(--accent-blue); }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent-blue);
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+
+    h1 { font-size: 26px; color: var(--navy); margin-bottom: 8px; font-weight: 800; }
+    p.lead { color: var(--text-muted); font-size: 14.5px; margin-bottom: 24px; }
+
+    .step-section { display: none; }
+    .step-section.active { display: block; animation: fadeIn 0.3s ease-in; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .option-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .option-card:hover {
+      border-color: var(--accent-blue);
+      background: rgba(2,132,199,0.02);
+    }
+    .option-card.selected {
+      border-color: var(--accent-blue);
+      background: rgba(2,132,199,0.06);
+      box-shadow: 0 0 0 2px var(--accent-blue);
+    }
+    .option-card input[type="radio"] { display: none; }
+    .option-indicator {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .option-card.selected .option-indicator {
+      border-color: var(--accent-blue);
+      background: var(--accent-blue);
+    }
+    .option-card.selected .option-indicator::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .option-title { font-weight: 700; color: var(--navy); font-size: 15px; margin-bottom: 2px; }
+    .option-sub { font-size: 12.5px; color: var(--text-muted); }
+
+    .form-row {
+      margin-bottom: 18px;
+    }
+    .form-row label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .form-row input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .form-row input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(2,132,199,0.15);
+    }
+
+    .btn-bar {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .btn {
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-next { background: var(--navy); color: #fff; }
+    .btn-next:hover { background: #1c3a60; }
+    .btn-prev { background: #f1f5f9; color: var(--text); border: 1px solid var(--border); }
+
+    /* Results Screen */
+    .score-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: var(--danger-bg);
+      border: 4px solid var(--danger-red);
+      color: var(--danger-red);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 20px auto;
+      font-family: var(--font-mono);
+      font-weight: 800;
+    }
+    .score-circle span.num { font-size: 32px; line-height: 1; }
+    .score-circle span.lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .recommendation-card {
+      border: 2px solid var(--accent-blue);
+      background: rgba(2,132,199,0.03);
+      border-radius: 8px;
+      padding: 24px;
+      margin: 24px 0;
+      text-align: left;
+    }
+    .recommendation-card h3 { font-size: 18px; color: var(--navy); margin-bottom: 8px; }
+
+    /* Top Banner & Header */
+    .top-banner {
+      background: var(--navy-deep);
+      color: #94a3b8;
+      font-size: 13px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .top-banner-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .top-banner a { color: var(--sky); text-decoration: none; font-weight: 600; }
+    header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--navy);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-badge {
+      background: var(--navy-deep);
+      color: var(--sky);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 6px;
+      border-radius: 4px;
+    }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Executive Banner -->
+  <div class="top-banner">
+    <div class="top-banner-inner">
+      <div>
+        <strong>Capital Risk Diagnostic:</strong> Forensic Infrastructure Vulnerability Assessment
+      </div>
+      <div>
+        <a href="/calculators.html" style="color:#38bdf8;margin-right:16px;">⚡ Engineering Calculators</a>
+        <a href="/portfolio.html#engagement-models" style="color:#fbbf24;">📅 Advisory Retainers</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="/portfolio.html" class="logo">
+        <span class="logo-badge">PRO</span>
+        <span>ProEngineering <span style="font-weight:400;color:var(--text-muted)">Diagnostic</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="/portfolio.html">Master Portfolio</a>
+        <a href="/calculators.html">Calculators</a>
+        <a href="/diagnostic.html" class="active">Audit Wizard</a>
+        <a href="/playbook.pdf">Free Playbook</a>
+        <a href="/portfolio.html#commentary">Forensic Teardowns</a>
+        <a href="/portfolio.html#engagement-models">Engagement Models</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="wizard-card">
+      <div class="progress-bar">
+        <div class="progress-step active" id="prog-1"></div>
+        <div class="progress-step" id="prog-2"></div>
+        <div class="progress-step" id="prog-3"></div>
+        <div class="progress-step" id="prog-4"></div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="step-section active" id="step-1">
+        <span class="eyebrow">STEP 1 OF 4 · INFRASTRUCTURE PROFILE</span>
+        <h1>What is the current stage of your capital package?</h1>
+        <p class="lead">Select the engineering context to calibrate our diagnostic evaluation.</p>
+
+        <div class="option-group">
+          <label class="option-card selected" onclick="selectOption(this, 1)">
+            <input type="radio" name="stage" value="greenfield" checked>
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">Greenfield Substation / Transmission Build</div>
+              <div class="option-sub">33kV / 132kV / 220kV grid interconnection &amp; civil-electrical delivery</div>
+            </div>
+          </label>
+          <label class="option-card" onclick="selectOption(this, 1)">
+            <input type="radio" name="stage" value="outage">
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">Operating Plant with Active Tripping / Nuisance Holds</div>
+              <div class="option-sub">Unexplained breaker trips, relay mis-coordination, motor stator failures</div>
+            </div>
+          </label>
+          <label class="option-card" onclick="selectOption(this, 1)">
+            <input type="radio" name="stage" value="prebid">
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">Pre-Bid / FEED Stage Specification Review</div>
+              <div class="option-sub">Tender vetting, EPC interface matrix preparation, and risk elimination</div>
+            </div>
+          </label>
+          <label class="option-card" onclick="selectOption(this, 1)">
+            <input type="radio" name="stage" value="datacentre">
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">Hyperscale Data Center / Critical Power Facility</div>
+              <div class="option-sub">Fast-track modular deployment, UPS/Generator sync, and commissioning</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="btn-bar" style="justify-content: flex-end;">
+          <button class="btn btn-next" onclick="goToStep(2)">Continue to Step 2 &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-section" id="step-2">
+        <span class="eyebrow">STEP 2 OF 4 · CRITICAL RISK IDENTIFICATION</span>
+        <h1>What is the primary technical bottleneck or risk?</h1>
+        <p class="lead">Identify the specific point where schedule or operational risk is most severe.</p>
+
+        <div class="option-group">
+          <label class="option-card selected" onclick="selectOption(this, 2)">
+            <input type="radio" name="risk" value="switchgear" checked>
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">Switchgear Commissioning Holds &amp; Inrush Tripping</div>
+              <div class="option-sub">CT/PT polarity mismatches, secondary injection holds, and breaker trips</div>
+            </div>
+          </label>
+          <label class="option-card" onclick="selectOption(this, 2)">
+            <input type="radio" name="risk" value="claims">
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">EPC Contractor Change Orders &amp; Interface Clashes</div>
+              <div class="option-sub">Uncoordinated battery limits, scope gaps, and disputed delay claims</div>
+            </div>
+          </label>
+          <label class="option-card" onclick="selectOption(this, 2)">
+            <input type="radio" name="risk" value="schedule">
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">Primavera P6 Critical-Path Negative Float</div>
+              <div class="option-sub">Artificial lags, uncoordinated vendor submittals, and milestone slippage</div>
+            </div>
+          </label>
+          <label class="option-card" onclick="selectOption(this, 2)">
+            <input type="radio" name="risk" value="islanding">
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">Grid Decarbonization &amp; Low-Inertia Instability</div>
+              <div class="option-sub">BESS/Solar tie-in, ROCOF (81R) tripping, and captive generator drops</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="btn-bar">
+          <button class="btn btn-prev" onclick="goToStep(1)">&larr; Back</button>
+          <button class="btn btn-next" onclick="goToStep(3)">Continue to Step 3 &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-section" id="step-3">
+        <span class="eyebrow">STEP 3 OF 4 · PACKAGE SCALE</span>
+        <h1>What is the approximate CAPEX budget for this package?</h1>
+        <p class="lead">Ensures our intervention model matches the commercial scale of your assets.</p>
+
+        <div class="option-group">
+          <label class="option-card selected" onclick="selectOption(this, 3)">
+            <input type="radio" name="budget" value="mid" checked>
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">$20M to $50M USD</div>
+              <div class="option-sub">Major substation, captive power package, or industrial plant turnaround</div>
+            </div>
+          </label>
+          <label class="option-card" onclick="selectOption(this, 3)">
+            <input type="radio" name="budget" value="mega">
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">$50M to $200M+ USD</div>
+              <div class="option-sub">Multi-package mega-project, greenfield industrial complex, or utility grid</div>
+            </div>
+          </label>
+          <label class="option-card" onclick="selectOption(this, 3)">
+            <input type="radio" name="budget" value="sub10">
+            <div class="option-indicator"></div>
+            <div>
+              <div class="option-title">Under $20M USD</div>
+              <div class="option-sub">Discrete switchgear replacement, MCC revamp, or single feeder upgrade</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="btn-bar">
+          <button class="btn btn-prev" onclick="goToStep(2)">&larr; Back</button>
+          <button class="btn btn-next" onclick="goToStep(4)">Continue to Step 4 &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-section" id="step-4">
+        <span class="eyebrow">STEP 4 OF 4 · CONTACT DETAILS</span>
+        <h1>Where should we deliver the diagnostic report?</h1>
+        <p class="lead">Enter your project title and corporate email to generate your risk index and recommended action protocol.</p>
+
+        <div class="form-row">
+          <label>Your Full Name</label>
+          <input type="text" id="lead_name" placeholder="e.g. David Miller" required>
+        </div>
+        <div class="form-row">
+          <label>Corporate Work Email</label>
+          <input type="email" id="lead_email" placeholder="e.g. david.miller@jacobs.com" required>
+        </div>
+        <div class="form-row">
+          <label>Company / Project Name</label>
+          <input type="text" id="lead_company" placeholder="e.g. Jacobs Solutions / 33kV Substation Expansion">
+        </div>
+
+        <div class="btn-bar">
+          <button class="btn btn-prev" onclick="goToStep(3)">&larr; Back</button>
+          <button class="btn btn-next" style="background:#10b981;color:#0b1e36;" onclick="calculateAndDisplayResults()">
+            Generate Diagnostic Risk Audit &rarr;
+          </button>
+        </div>
+      </div>
+
+      <!-- RESULTS SCREEN -->
+      <div class="step-section" id="step-results">
+        <div style="text-align:center;">
+          <div class="score-circle">
+            <span class="num" id="res_score">82</span>
+            <span class="lbl">Vulnerability</span>
+          </div>
+          <span class="eyebrow">AUDIT SUMMARY &amp; RECOMMENDED INTERVENTION</span>
+          <h2 style="font-size:24px;color:var(--navy);margin-bottom:8px;">High Interface Risk Detected</h2>
+          <p style="color:var(--text-muted);font-size:14px;max-width:620px;margin:0 auto 20px auto;">
+            Based on your responses, uncoordinated protection curves and vendor battery limit gaps present an estimated <strong>$150,000/day outage exposure</strong> if energized without independent verification.
+          </p>
+        </div>
+
+        <div class="recommendation-card" id="res_rec_box">
+          <span style="font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--accent-blue);text-transform:uppercase;">RECOMMENDED COMMERCIAL ENGAGEMENT</span>
+          <h3 id="res_model_title">Critical Incident RCA &amp; Diagnostic Turnaround Sprint</h3>
+          <p id="res_model_desc" style="font-size:13.5px;color:var(--text);margin-bottom:14px;">
+            A structured 2- to 4-week fixed-scope forensic intervention. Reconstructs sequence-of-events chronologies, recalculates protection relay settings (IEEE C37.2 / IEC 60255), and delivers an audit-proof corrective roadmap.
+          </p>
+          <ul style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">
+            <li>Zero reliance on OEM finger-pointing; stamped engineering findings.</li>
+            <li>Guaranteed 24-hour turnaround on critical submittals and hold points.</li>
+          </ul>
+          <a id="res_booking_btn" href="mailto:amaresh.das3@gmail.com?subject=Priority:%20Diagnostic%20Risk%20Audit%20Engagement" class="btn" style="background:#10b981;color:#0b1e36;font-weight:700;padding:12px 20px;display:inline-block;">
+            📅 Schedule Priority 15-Minute Scoping Call &rarr;
+          </a>
+        </div>
+
+        <div style="text-align:center;margin-top:20px;">
+          <a href="/portfolio.html" style="font-size:13px;color:var(--accent-blue);text-decoration:none;">&larr; Return to Master Portfolio</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+
+    function selectOption(card, step) {
+      const parent = card.parentElement;
+      parent.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const radio = card.querySelector('input[type="radio"]');
+      if (radio) radio.checked = true;
+    }
+
+    function goToStep(step) {
+      document.querySelectorAll('.step-section').forEach(s => s.classList.remove('active'));
+      document.getElementById('step-' + step).classList.add('active');
+
+      for (let i = 1; i <= 4; i++) {
+        const prog = document.getElementById('prog-' + i);
+        if (i <= step) prog.classList.add('active');
+        else prog.classList.remove('active');
+      }
+      currentStep = step;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function calculateAndDisplayResults() {
+      const email = document.getElementById('lead_email').value;
+      const name = document.getElementById('lead_name').value;
+      const company = document.getElementById('lead_company').value;
+
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid corporate email address.');
+        return;
+      }
+
+      // Determine score and recommendation
+      const stage = document.querySelector('input[name="stage"]:checked').value;
+      const risk = document.querySelector('input[name="risk"]:checked').value;
+      const budget = document.querySelector('input[name="budget"]:checked').value;
+
+      let score = 65;
+      if (stage === 'outage') score += 20;
+      if (risk === 'switchgear' || risk === 'claims') score += 12;
+      if (budget === 'mega') score += 10;
+      score = Math.min(96, score);
+
+      document.getElementById('res_score').innerText = score;
+
+      const titleEl = document.getElementById('res_model_title');
+      const descEl = document.getElementById('res_model_desc');
+      const btnEl = document.getElementById('res_booking_btn');
+
+      if (stage === 'outage' || score >= 80) {
+        titleEl.innerText = "Critical Incident RCA & Diagnostic Sprint (Fixed Scope)";
+        descEl.innerText = "Structured 2- to 4-week forensic diagnostic triage. Reconstructs sequence-of-events chronologies, recalculates protection relay settings (IEEE C37.2 / IEC 60255), and delivers an audit-proof corrective roadmap to resume full uptime.";
+        btnEl.href = "mailto:amaresh.das3@gmail.com?subject=Emergency:%20Diagnostic%20Turnaround%20Sprint%20Inquiry%20(" + encodeURIComponent(company || name) + ")";
+      } else if (budget === 'mega') {
+        titleEl.innerText = "Senior Remote Program Director / Lead Technical PM";
+        descEl.innerText = "Dedicated executive leadership directing multi-year capital programs ($50M+ to $200M+ CAPEX) from FEED through multi-discipline EPC contractor management and commercial operations.";
+        btnEl.href = "mailto:amaresh.das3@gmail.com?subject=Leadership:%20Senior%20Remote%20Program%20Director%20Role%20(" + encodeURIComponent(company || name) + ")";
+      } else {
+        titleEl.innerText = "Fractional Owner's Engineer & Technical Advisor (Retainer)";
+        descEl.innerText = "Dedicated senior engineering advisory (10–20 hours/month) providing specification vetting, vendor technical due diligence (FAT/SAT), and stage-gate commissioning reviews to stop change orders before they start.";
+        btnEl.href = "mailto:amaresh.das3@gmail.com?subject=Inquiry:%20Fractional%20Technical%20Advisory%20(" + encodeURIComponent(company || name) + ")";
+      }
+
+      // Record lead in localStorage for persistence
+      try {
+        const leadRecord = {
+          name, email, company, stage, risk, budget, score, timestamp: new Date().toISOString()
+        };
+        const existing = JSON.parse(localStorage.getItem('inbound_leads') || '[]');
+        existing.push(leadRecord);
+        localStorage.setItem('inbound_leads', JSON.stringify(existing));
+      } catch (e) {}
+
+      goToStep('results');
+    }
+  </script>
+
+</body>
+</html>

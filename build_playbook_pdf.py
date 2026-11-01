@@ -66,3 +66,4 @@ def compile_pdf():
 
 if __name__ == "__main__":
     compile_pdf()
+
