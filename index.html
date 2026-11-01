@@ -60,12 +60,12 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; font-size: 16.5px; }
+    html { scroll-behavior: smooth; font-size: 17px; }
     body {
       font-family: var(--font);
       background: var(--bg);
       color: var(--ink);
-      line-height: 1.62; font-size: 16px;
+      line-height: 1.65; font-size: 17px;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       transition: background .2s, color .2s;
@@ -365,7 +365,7 @@
       color: var(--quiet);
       max-width: 680px;
       margin-top: 6px;
-      line-height: 1.6;
+      line-height: 1.65; font-size: 17px;
     }
 
     /* ====== ENGAGEMENT MODELS GRID ====== */
@@ -421,7 +421,7 @@
     .model-desc {
       font-size: 13.5px;
       color: var(--ink);
-      line-height: 1.6;
+      line-height: 1.65; font-size: 17px;
       margin-bottom: 16px;
     }
     .model-deliverables {
@@ -584,8 +584,9 @@
     .case-card {
       background: var(--surface);
       border: 1px solid var(--line);
-      border-radius: 5px;
+      border-radius: 6px;
       padding: 32px 30px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
       transition: border-color .2s, box-shadow .2s;
       position: relative;
     }
@@ -842,7 +843,7 @@
       color: var(--quiet);
       max-width: 650px;
       margin: 0 auto 24px;
-      line-height: 1.6;
+      line-height: 1.65; font-size: 17px;
     }
 
     /* ====== SITE FOOTER ====== */
@@ -867,7 +868,7 @@
     .footer-top p {
       font-size: 13.5px;
       color: var(--quiet);
-      line-height: 1.6;
+      line-height: 1.65; font-size: 17px;
     }
     .footer-col h4 {
       font-size: 11px;
@@ -1345,6 +1346,10 @@
 
         <!-- Case 01: EDI -->
         <article class="case-card" data-category="live">
+          <div style="margin:-32px -30px 24px -30px; border-radius:5px 5px 0 0; overflow:hidden; height:180px; position:relative;">
+            <img src="assets/images/control-room-analytics.jpg" alt="Engineering Delivery Intelligence Mission Control Analytics" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+            <div style="position:absolute; bottom:10px; right:12px; background:rgba(12,31,56,0.85); color:#ffffff; font-family:var(--mono); font-size:11.5px; padding:3px 9px; border-radius:3px; font-weight:600;">PROJECT INTELLIGENCE &amp; ANALYTICS</div>
+          </div>
           <header>
             <span class="case-number">01</span>
             <div>
@@ -1400,6 +1405,10 @@
 
         <!-- Case 02: 20 Construction Skills -->
         <article class="case-card" data-category="live">
+          <div style="margin:-32px -30px 24px -30px; border-radius:5px 5px 0 0; overflow:hidden; height:180px; position:relative;">
+            <img src="assets/images/construction-cranes.jpg" alt="Industrial Construction EPC Heavy Site &amp; Tower Cranes" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+            <div style="position:absolute; bottom:10px; right:12px; background:rgba(12,31,56,0.85); color:#ffffff; font-family:var(--mono); font-size:11.5px; padding:3px 9px; border-radius:3px; font-weight:600;">INDUSTRIAL EPC &amp; CONSTRUCTION</div>
+          </div>
           <header>
             <span class="case-number">02</span>
             <div>
@@ -1562,6 +1571,10 @@
 
         <!-- Case 05: Predictive Maintenance -->
         <article class="case-card" data-category="live">
+          <div style="margin:-32px -30px 24px -30px; border-radius:5px 5px 0 0; overflow:hidden; height:180px; position:relative;">
+            <img src="assets/images/predictive-maintenance.jpg" alt="Industrial Predictive Maintenance &amp; Equipment Telemetry" style="width:100%; height:100%; object-fit:cover; display:block;" loading="lazy">
+            <div style="position:absolute; bottom:10px; right:12px; background:rgba(12,31,56,0.85); color:#ffffff; font-family:var(--mono); font-size:11.5px; padding:3px 9px; border-radius:3px; font-weight:600;">CONDITION TELEMETRY &amp; PdM</div>
+          </div>
           <header>
             <span class="case-number">05</span>
             <div>
