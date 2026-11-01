@@ -1,0 +1,17 @@
+{
+  "name": "amaresh-das-portfolio",
+  "version": "1.0.0",
+  "description": "Executive Portfolio and ProEngineering Industrial Advisory Platform",
+  "scripts": {
+    "test": "node tests/test_submit_advisory.js && node tests/verify_page_safeguards.js"
+  },
+  "keywords": [
+    "engineering",
+    "advisory",
+    "electrical",
+    "pmp"
+  ],
+  "author": "Amaresh Das, PMP®",
+  "license": "UNLICENSED",
+  "private": true
+}
